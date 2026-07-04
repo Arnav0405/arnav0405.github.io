@@ -5,6 +5,7 @@ import "./globals.css";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { BookmarkNav } from "@/components/BookmarkNav";
 import { Colophon } from "@/components/Colophon";
+import { MusicToggle } from "@/components/MusicToggle";
 
 const lora = Lora({ subsets: ["latin"], variable: "--font-lora" });
 const caveat = Caveat({ subsets: ["latin"], variable: "--font-caveat" });
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-desk font-serif text-ink">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="fixed right-4 top-4 z-40 flex gap-2">
+            <MusicToggle />
             <ThemeToggle />
           </div>
           <BookmarkNav />
