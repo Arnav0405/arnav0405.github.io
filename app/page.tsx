@@ -91,13 +91,10 @@ export default function Cover() {
         {...fadeUp(1.0)}
         className="mt-10 text-xs uppercase tracking-[0.3em] text-ink-faded"
       >
-        {site.location} · MMXXVII
+        {site.location} · MMV
       </motion.p>
 
-      <motion.p
-        {...fadeUp(1.1)}
-        className="mt-6 font-hand text-xl text-note"
-      >
+      <motion.p {...fadeUp(1.1)} className="mt-6 font-hand text-xl text-note">
         pull up a chair, stay a while.
       </motion.p>
     </div>
