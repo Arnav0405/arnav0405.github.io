@@ -18,7 +18,7 @@ export function BookmarkNav() {
       href={c.href}
       aria-current={pathname === c.href ? "page" : undefined}
       className={`font-hand text-xl leading-none transition hover:text-accent ${
-        pathname === c.href ? "text-accent" : "text-note"
+        pathname === c.href ? "text-accent" : "text-ink-faded"
       }`}
     >
       {c.label}
@@ -37,7 +37,7 @@ export function BookmarkNav() {
       {/* compact top nav, mobile/tablet */}
       <nav
         aria-label="Chapters"
-        className="relative z-40 mx-auto flex max-w-3xl justify-center gap-5 px-4 pt-4 lg:hidden"
+        className="relative z-40 flex flex-wrap items-center gap-x-5 gap-y-2 px-4 pr-28 pt-5 lg:hidden"
       >
         {chapters.map(link)}
       </nav>

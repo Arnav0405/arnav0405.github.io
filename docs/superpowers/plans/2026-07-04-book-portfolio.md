@@ -22,7 +22,7 @@
 
 ## User-Supplied Assets (not blockers, swap points)
 
-- `public/audio/ambient.mp3` — Task 9 generates a soft brown-noise loop with ffmpeg as a working stand-in; user replaces with a preferred CC0 cozy track later (same path, no code change).
+- `public/audio/ambient.m4a` — Task 9 generates a soft brown-noise loop with ffmpeg as a working stand-in; user replaces with a preferred CC0 cozy track later (same path, no code change). (keep the .m4a filename, or update the path in components/MusicToggle.tsx)
 - `public/resume.pdf` — user drops in their real resume; until then the "printed copy" link 404s (acceptable pre-launch).
 - 4 projects — user provides later; `content/projects.ts` ships with an empty typed array and the Works page renders a handwritten "still being written" note when empty. Adding projects is a data-file edit only.
 
@@ -1240,4 +1240,4 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 
 1. Drop real resume at `public/resume.pdf`.
 2. Send the 4 projects — they go into `content/projects.ts` as data.
-3. Optionally replace `public/audio/ambient.mp3` with a preferred CC0 track.
+3. Optionally replace `public/audio/ambient.m4a` with a preferred CC0 track. (keep the .m4a filename, or update the path in components/MusicToggle.tsx)
