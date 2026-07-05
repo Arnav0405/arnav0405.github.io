@@ -44,7 +44,13 @@ function VinylIcon({ playing }: { playing: boolean }) {
       />
       {/* label */}
       <circle cx="12" cy="12" r="3.4" fill="var(--accent)" />
-      <circle cx="12" cy="10.2" r="0.45" fill="var(--paper)" fillOpacity="0.8" />
+      <circle
+        cx="12"
+        cy="10.2"
+        r="0.45"
+        fill="var(--paper)"
+        fillOpacity="0.8"
+      />
       {/* spindle hole */}
       <circle cx="12" cy="12" r="0.9" fill="var(--paper)" />
     </svg>
@@ -56,7 +62,7 @@ export function MusicToggle() {
     initializeWithValue: false,
   });
   const [mounted, setMounted] = useState(false);
-  const [play, { stop }] = useSound("/audio/ambient.m4a", {
+  const [play, { stop }] = useSound("/audio/bluerose.m4a", {
     loop: true,
     volume: 0.35,
   });
