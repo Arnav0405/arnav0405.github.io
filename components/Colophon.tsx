@@ -1,10 +1,11 @@
+import { AnimatedA } from "@/components/AnimatedA";
 import { site } from "@/content/site";
 
 export function Colophon() {
   return (
     <footer className="relative z-10 mx-auto max-w-3xl px-4 pb-10 pt-6 text-center text-sm text-ink-faded">
       <div className="mb-3 text-accent" aria-hidden>
-        ❦
+        <AnimatedA />
       </div>
       <p>
         Set in Lora &amp; Caveat. Bound with Next.js. {site.location},{" "}

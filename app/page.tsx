@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
+import { AnimatedA } from "@/components/AnimatedA";
 import { site } from "@/content/site";
 
 const toc = [
@@ -39,7 +40,7 @@ export default function Cover() {
       </motion.p>
 
       <motion.div {...fadeUp(0.5)} className="mt-4 text-accent" aria-hidden>
-        ❦
+        <AnimatedA />
       </motion.div>
 
       <motion.nav

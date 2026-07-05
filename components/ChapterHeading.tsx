@@ -1,3 +1,5 @@
+import { AnimatedA } from "@/components/AnimatedA";
+
 export function ChapterHeading({
   numeral,
   title,
@@ -12,7 +14,7 @@ export function ChapterHeading({
       </p>
       <h1 className="mt-2 text-4xl">{title}</h1>
       <div className="mt-4 text-accent" aria-hidden>
-        ❦
+        <AnimatedA />
       </div>
     </header>
   );
