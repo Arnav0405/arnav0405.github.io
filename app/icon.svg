@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="74 23 820 820" fill="none">
+  <style>
+    path { stroke: #1f3a5f; }
+    @media (prefers-color-scheme: dark) {
+      path { stroke: #d9a05b; }
+    }
+  </style>
+  <g stroke-width="64" stroke-linecap="round">
+    <path d="M302 95 C300 300 297 550 298 722"/>
+    <path d="M298 720 C335 615 450 440 545 333"/>
+    <path d="M302 95 C302 300 375 505 558 552"/>
+    <path d="M530 515 C420 545 295 525 250 615 C210 695 245 772 330 766 C440 758 630 545 758 405"/>
+  </g>
+</svg>
