@@ -31,6 +31,7 @@ export function Colophon() {
           LinkedIn
         </a>
       </p>
+      <p className="mt-2">Music: Bluerose (Twilight Ver.) by Hoshimachi Suisei</p>
     </footer>
   );
 }
