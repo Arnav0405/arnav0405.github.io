@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 const chapters = [
   { href: "/", label: "Cover" },
   { href: "/about", label: "Prologue" },
-  { href: "/projects", label: "Works" },
   { href: "/experience", label: "Experience" },
+  { href: "/projects", label: "Works" },
 ];
 
 export function BookmarkNav() {

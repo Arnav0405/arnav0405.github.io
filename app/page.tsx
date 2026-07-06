@@ -7,8 +7,8 @@ import { site } from "@/content/site";
 
 const toc = [
   { href: "/about", numeral: "I", title: "Prologue" },
-  { href: "/projects", numeral: "II", title: "Works" },
-  { href: "/experience", numeral: "III", title: "Experience" },
+  { href: "/experience", numeral: "II", title: "Experience" },
+  { href: "/projects", numeral: "III", title: "Works" },
 ];
 
 export default function Cover() {
