@@ -27,7 +27,7 @@ export default function RootLayout({
     >
       <body className="min-h-screen bg-desk font-serif text-ink">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="fixed right-4 top-4 z-40 flex gap-2">
+          <div className="fixed right-4 top-4 z-50 flex gap-2">
             <MusicToggle />
             <ThemeToggle />
           </div>

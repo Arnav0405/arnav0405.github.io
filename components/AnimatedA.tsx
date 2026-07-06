@@ -6,8 +6,8 @@ import { motion, useReducedMotion } from "motion/react";
 // 1. tall downstroke, 2. upward check arm from the bottom vertex,
 // 3. downward curve peeling off the top, 4. loop + swoosh.
 const STROKES = [
-  { d: "M302 95 C300 300 297 550 298 722", duration: 0.4 },
-  { d: "M298 720 C335 615 450 440 545 333", duration: 0.3 },
+  { d: "M545 333 C450 440 335 615 298 720", duration: 0.3 },
+  { d: "M298 722 C297 550 300 300 302 95", duration: 0.4 },
   { d: "M302 95 C302 300 375 505 558 552", duration: 0.35 },
   {
     d: "M530 515 C420 545 295 525 250 615 C210 695 245 772 330 766 C440 758 630 545 758 405",
@@ -77,7 +77,11 @@ export function AnimatedA({ loop = false }: { loop?: boolean }) {
                 pathLength: 1,
                 opacity: 1,
                 transition: {
-                  pathLength: { duration: stroke.duration, delay, ease: "easeInOut" },
+                  pathLength: {
+                    duration: stroke.duration,
+                    delay,
+                    ease: "easeInOut",
+                  },
                   opacity: { duration: 0.01, delay },
                 },
               },
