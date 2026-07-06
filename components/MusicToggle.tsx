@@ -62,7 +62,7 @@ export function MusicToggle() {
     initializeWithValue: false,
   });
   const [mounted, setMounted] = useState(false);
-  const [play, { stop }] = useSound("/audio/bluerose.m4a", {
+  const [play, { stop, pause }] = useSound("/audio/bluerose.m4a", {
     loop: true,
     volume: 0.35,
   });
@@ -74,6 +74,19 @@ export function MusicToggle() {
     if (mounted && wantsMusic) play();
     return () => stop();
   }, [mounted, wantsMusic, play, stop]);
+
+  useEffect(() => {
+    if (!mounted || !wantsMusic) return;
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) pause();
+      else play();
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () =>
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, [mounted, wantsMusic, play, pause]);
 
   if (!mounted) return <span className="inline-block size-9" />;
 
