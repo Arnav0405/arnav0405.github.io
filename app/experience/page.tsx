@@ -49,7 +49,7 @@ export default function Experience() {
       <p className="text-center">
         <a
           href="/resume.pdf"
-          className="text-accent underline-offset-4 hover:underline"
+          className="text-accent underline-center"
         >
           Take a printed copy — resume (PDF)
         </a>

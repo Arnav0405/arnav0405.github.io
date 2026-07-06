@@ -68,21 +68,15 @@ export default function Cover() {
 
       <motion.p {...fadeUp(0.85)} className="mt-12 flex gap-5 text-sm">
         <a
-          className="text-accent underline-offset-4 hover:underline"
+          className="text-accent underline-center"
           href={`mailto:${site.email}`}
         >
           Email
         </a>
-        <a
-          className="text-accent underline-offset-4 hover:underline"
-          href={site.github}
-        >
+        <a className="text-accent underline-center" href={site.github}>
           GitHub
         </a>
-        <a
-          className="text-accent underline-offset-4 hover:underline"
-          href={site.linkedin}
-        >
+        <a className="text-accent underline-center" href={site.linkedin}>
           LinkedIn
         </a>
       </motion.p>

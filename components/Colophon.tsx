@@ -13,21 +13,15 @@ export function Colophon() {
       </p>
       <p className="mt-2 flex justify-center gap-4">
         <a
-          className="text-accent underline-offset-4 hover:underline"
+          className="text-accent underline-center"
           href={`mailto:${site.email}`}
         >
           Email
         </a>
-        <a
-          className="text-accent underline-offset-4 hover:underline"
-          href={site.github}
-        >
+        <a className="text-accent underline-center" href={site.github}>
           GitHub
         </a>
-        <a
-          className="text-accent underline-offset-4 hover:underline"
-          href={site.linkedin}
-        >
+        <a className="text-accent underline-center" href={site.linkedin}>
           LinkedIn
         </a>
       </p>
