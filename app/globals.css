@@ -11,6 +11,9 @@
     --note: #7a7265;
     --sheet-shadow: rgba(43, 38, 32, 0.18);
     --grain-opacity: 0.05;
+    --chip-well: rgba(43, 38, 32, 0.07);
+    --chip-shadow-dark: rgba(43, 38, 32, 0.28);
+    --chip-shadow-light: rgba(255, 255, 255, 0.65);
 }
 
 .dark {
@@ -22,6 +25,9 @@
     --note: #b3a184;
     --sheet-shadow: rgba(0, 0, 0, 0.55);
     --grain-opacity: 0.08;
+    --chip-well: rgba(0, 0, 0, 0.25);
+    --chip-shadow-dark: rgba(0, 0, 0, 0.6);
+    --chip-shadow-light: rgba(232, 220, 200, 0.07);
 }
 
 @theme inline {
@@ -100,6 +106,42 @@ body::before {
 .underline-center:hover::after,
 .underline-center:focus-visible::after {
     transform: translateX(-50%) scaleX(1);
+}
+
+/* tech stamped into the paper, letterpress-style */
+.tech-chip {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 6px;
+    background: var(--chip-well);
+    color: var(--ink-faded);
+    text-decoration: none;
+    box-shadow:
+        inset 1.5px 2px 3px var(--chip-shadow-dark),
+        inset -1px -1.5px 2px var(--chip-shadow-light);
+    transition:
+        box-shadow 0.25s ease,
+        transform 0.25s ease,
+        color 0.25s ease,
+        background 0.25s ease;
+}
+
+a.tech-chip:hover,
+a.tech-chip:focus-visible {
+    background: var(--paper);
+    color: var(--accent);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px var(--sheet-shadow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tech-chip {
+        transition: color 0.25s ease;
+    }
+    a.tech-chip:hover,
+    a.tech-chip:focus-visible {
+        transform: none;
+    }
 }
 
 .sheet-shadow {
