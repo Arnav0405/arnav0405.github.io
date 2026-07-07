@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { ChapterHeading } from "@/components/ChapterHeading";
 import { MarginNote } from "@/components/MarginNote";
 import { Asterism } from "@/components/Asterism";
-import { projects, papers, techLinks } from "@/content/projects";
+import { projects, papers } from "@/content/projects";
+import { techLinks } from "@/content/tech";
 
 export const metadata: Metadata = { title: "Works" };
 

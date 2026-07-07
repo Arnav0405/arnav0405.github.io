@@ -6,44 +6,6 @@ export type Project = {
   note?: string;
 };
 
-// Official site per tech; chips without an entry render unlinked.
-export const techLinks: Record<string, string> = {
-  Rust: "https://www.rust-lang.org",
-  reqwest: "https://docs.rs/reqwest",
-  ratatui: "https://ratatui.rs",
-  serde: "https://serde.rs",
-  Prophet: "https://facebook.github.io/prophet/",
-  LSTM: "https://en.wikipedia.org/wiki/Long_short-term_memory",
-  MLflow: "https://mlflow.org",
-  "Apache Airflow": "https://airflow.apache.org",
-  Express: "https://expressjs.com",
-  "Google ADK": "https://google.github.io/adk-docs/",
-  "Gemini API": "https://ai.google.dev",
-  LangChain: "https://www.langchain.com",
-  Chroma: "https://www.trychroma.com",
-  HuggingFace: "https://huggingface.co",
-  PyTorch: "https://pytorch.org",
-  CLIP: "https://github.com/openai/CLIP",
-  FAISS: "https://github.com/facebookresearch/faiss",
-  HDF5: "https://www.hdfgroup.org/solutions/hdf5/",
-  OpenCV: "https://opencv.org",
-  MediaPipe: "https://developers.google.com/mediapipe",
-  Optuna: "https://optuna.org",
-  ONNX: "https://onnx.ai",
-  Kotlin: "https://kotlinlang.org",
-  XGBoost: "https://xgboost.readthedocs.io",
-  "scikit-learn": "https://scikit-learn.org",
-  Flask: "https://flask.palletsprojects.com",
-  Seaborn: "https://seaborn.pydata.org",
-  Pandas: "https://pandas.pydata.org",
-  NumPy: "https://numpy.org",
-  GraphQL: "https://graphql.org",
-  BeautifulSoup: "https://www.crummy.com/software/BeautifulSoup/",
-  FastAPI: "https://fastapi.tiangolo.com",
-  JavaScript: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-  HTML: "https://developer.mozilla.org/en-US/docs/Web/HTML",
-};
-
 export type Paper = {
   title: string;
   venue: string;

@@ -3,6 +3,7 @@ import { ChapterHeading } from "@/components/ChapterHeading";
 import { MarginNote } from "@/components/MarginNote";
 import { Asterism } from "@/components/Asterism";
 import { internships, skills } from "@/content/experience";
+import { techLinks } from "@/content/tech";
 
 export const metadata: Metadata = { title: "Experience" };
 
@@ -34,11 +35,27 @@ export default function Experience() {
         <h2 className="mb-6 text-center text-sm uppercase tracking-[0.3em] text-ink-faded">
           Appendix — Index of Skills
         </h2>
-        <dl className="space-y-4">
+        <dl className="space-y-6">
           {Object.entries(skills).map(([group, items]) => (
-            <div key={group} className="text-lg leading-8">
-              <dt className="inline font-semibold">{group}: </dt>
-              <dd className="inline text-ink-faded">{items.join(", ")}</dd>
+            <div key={group}>
+              <dt className="text-sm font-semibold uppercase tracking-[0.15em] text-ink-faded">
+                {group}
+              </dt>
+              <dd>
+                <ul className="mt-3 flex flex-wrap gap-2 text-sm">
+                  {items.map((item) => (
+                    <li key={item}>
+                      {techLinks[item] ? (
+                        <a href={techLinks[item]} className="tech-chip">
+                          {item}
+                        </a>
+                      ) : (
+                        <span className="tech-chip">{item}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </dd>
             </div>
           ))}
         </dl>

@@ -39,7 +39,14 @@ export default function Cover() {
         {site.role}
       </motion.p>
 
-      <motion.div {...fadeUp(0.5)} className="mt-4 text-accent" aria-hidden>
+      <motion.p
+        {...fadeUp(0.45)}
+        className="mt-3 font-mono text-xs tracking-wide text-[#e2492c]"
+      >
+        Interning at Datafuel
+      </motion.p>
+
+      <motion.div {...fadeUp(0.55)} className="mt-4 text-accent" aria-hidden>
         <AnimatedA />
       </motion.div>
 
@@ -78,6 +85,9 @@ export default function Cover() {
         </a>
         <a className="text-accent underline-center" href={site.linkedin}>
           LinkedIn
+        </a>
+        <a className="text-accent underline-center" href={site.resume}>
+          Resume
         </a>
       </motion.p>
 
