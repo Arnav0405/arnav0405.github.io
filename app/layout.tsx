@@ -6,6 +6,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { BookmarkNav } from "@/components/BookmarkNav";
 import { Colophon } from "@/components/Colophon";
 import { MusicToggle } from "@/components/MusicToggle";
+import { DeskClock } from "@/components/DeskClock";
 
 const lora = Lora({ subsets: ["latin"], variable: "--font-lora" });
 const caveat = Caveat({ subsets: ["latin"], variable: "--font-caveat" });
@@ -32,6 +33,12 @@ export default function RootLayout({
             <ThemeToggle />
           </div>
           <BookmarkNav />
+          <div
+            className="pointer-events-none fixed bottom-5 right-5 z-40 hidden lg:block"
+            aria-hidden="true"
+          >
+            <DeskClock />
+          </div>
           <main className="relative z-10 mx-auto w-full max-w-3xl px-4 py-10 sm:py-16">
             {children}
           </main>

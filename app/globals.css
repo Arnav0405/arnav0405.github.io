@@ -7,7 +7,7 @@
     --paper: #f7f1e3;
     --ink: #2b2620;
     --ink-faded: #6b6154;
-    --accent: #1f3a5f;
+    --accent: #0e134e;
     --note: #7a7265;
     --sheet-shadow: rgba(43, 38, 32, 0.18);
     --grain-opacity: 0.05;
@@ -142,6 +142,28 @@ a.tech-chip:focus-visible {
     a.tech-chip:focus-visible {
         transform: none;
     }
+}
+
+/* desk clock, pressed from the same paper stock */
+.desk-clock {
+    width: 9.5rem;
+    height: 9.5rem;
+    padding: 0.65rem;
+    border-radius: 9999px;
+    background: var(--paper);
+    box-shadow:
+        -5px -5px 12px var(--chip-shadow-light),
+        7px 9px 20px var(--chip-shadow-dark);
+}
+
+.desk-clock-dial {
+    width: 100%;
+    height: 100%;
+    border-radius: 9999px;
+    background: var(--chip-well);
+    box-shadow:
+        inset 2px 3px 6px var(--chip-shadow-dark),
+        inset -2px -2px 5px var(--chip-shadow-light);
 }
 
 .sheet-shadow {
