@@ -29,6 +29,28 @@ export const internships: Internship[] = [
   },
 ];
 
+export type Edition = {
+  discipline: string;
+  title: string;
+  blurb: string;
+  href: string;
+};
+
+export const editions: Edition[] = [
+  {
+    discipline: "Engineering",
+    title: "The Full Stack Edition",
+    blurb: "Platforms, async back ends, scrapers at serious scale.",
+    href: "/resume.pdf",
+  },
+  {
+    discipline: "Research",
+    title: "The Machine Learning Edition",
+    blurb: "Models, training runs, evaluation, agent tooling.",
+    href: "/resume-ml.pdf",
+  },
+];
+
 export const skills: Record<string, string[]> = {
   Languages: [
     "Python",
