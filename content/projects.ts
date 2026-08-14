@@ -15,6 +15,14 @@ export type Paper = {
 // Newest first.
 export const projects: Project[] = [
   {
+    title: "Astra — Real-Time Streaming Voice Assistant",
+    summary:
+      "Everything between a live microphone and an LLM, as a streaming system rather than a record-then-upload demo. A Go runtime takes 20 ms PCM frames over a WebSocket and runs the front end in-process: a VAD I trained from scratch (AUC 0.982), a custom “Astraa” wake word, and a frame-counted state machine that decides when you've actually finished talking. Replies stream back sentence by sentence while the mic stays live, so 159 ms of sustained speech cancels the turn mid-word. ONNX is the only thing crossing the Python–Go line, and every model boundary is golden-tested for parity within 1e-4.",
+    tech: ["Go", "PyTorch", "ONNX", "OpenWakeWord", "Protobuf", "Docker"],
+    link: "https://github.com/Arnav0405/Astra-Real-Time-Streaming-Voice-Assist",
+    note: "Talk over it and it stops talking.",
+  },
+  {
     title: "Gmail in the Terminal",
     summary:
       "An email client that lives in the terminal — read, send, thread through conversations, and wrangle labels, all over the Gmail API. Built in Rust for the oldest reason there is: I wanted to learn the language, and nothing teaches like shipping something you'll actually use.",

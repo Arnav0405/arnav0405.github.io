@@ -2,6 +2,9 @@
 // Shared by the Works (project stacks) and Experience (skills appendix) pages.
 export const techLinks: Record<string, string> = {
   // Project stacks
+  OpenWakeWord: "https://github.com/dscripka/openWakeWord",
+  Protobuf: "https://protobuf.dev",
+  Docker: "https://www.docker.com",
   Rust: "https://www.rust-lang.org",
   reqwest: "https://docs.rs/reqwest",
   ratatui: "https://ratatui.rs",
