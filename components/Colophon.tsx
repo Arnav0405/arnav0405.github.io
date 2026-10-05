@@ -8,7 +8,7 @@ export function Colophon() {
         <AnimatedA loop />
       </div>
       <p>
-        Set in Lora &amp; Caveat. Bound with Next.js. {site.location},{" "}
+        Set in Newsreader &amp; Caveat. Bound with Next.js. {site.location},{" "}
         {site.edition}.
       </p>
       <p className="mt-2 flex justify-center gap-4">

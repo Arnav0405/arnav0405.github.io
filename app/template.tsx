@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import {
   motion,
@@ -10,8 +10,17 @@ import {
   useTransform,
   type PanInfo,
 } from "motion/react";
+import { chapters, chapterIndex } from "@/content/chapters";
 
-const chapters = ["/", "/about", "/experience", "/projects"];
+// Only on laptops/desktops — matches the lg breakpoint the desktop nav uses at,
+// and skips touch-only tablets where swiping is the expected gesture.
+const DESKTOP_NAV = "(min-width: 1024px) and (pointer: fine)";
+
+function isTypingTarget(target: EventTarget | null) {
+  if (!(target instanceof HTMLElement)) return false;
+  if (target.isContentEditable) return true;
+  return /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName);
+}
 
 export default function Template({
   children,
@@ -22,7 +31,7 @@ export default function Template({
   const router = useRouter();
   const pathname = usePathname();
 
-  const idx = chapters.indexOf(pathname);
+  const idx = chapterIndex(pathname);
   const canForward = idx > -1 && idx < chapters.length - 1;
   const canBack = idx > 0;
 
@@ -33,10 +42,36 @@ export default function Template({
   const [leaving, setLeaving] = useState<1 | -1 | null>(null);
 
   const onDragEnd = (_: unknown, info: PanInfo) => {
-    const throwX = info.offset.x + info.velocity.x * 0.2;
-    if (throwX < -90 && canForward) setLeaving(1);
-    else if (throwX > 90 && canBack) setLeaving(-1);
-  };
+      const throwX = info.offset.x + info.velocity.x * 0.2;
+      if (throwX < -90 && canForward) setLeaving(1);
+      else if (throwX > 90 && canBack) setLeaving(-1);
+    };
+
+    const flip = useCallback(
+      (dir: 1 | -1) => {
+        if (dir === 1 && canForward) setLeaving(1);
+        else if (dir === -1 && canBack) setLeaving(-1);
+      },
+      [canForward, canBack],
+    );
+
+    useEffect(() => {
+      if (!window.matchMedia(DESKTOP_NAV).matches) return;
+
+      const onKeyDown = (e: KeyboardEvent) => {
+        if (leaving || e.metaKey || e.ctrlKey || e.altKey) return;
+        if (e.repeat || isTypingTarget(e.target)) return;
+
+        if (e.key === "ArrowRight") flip(1);
+        else if (e.key === "ArrowLeft") flip(-1);
+        else return;
+
+        e.preventDefault();
+      };
+
+      window.addEventListener("keydown", onKeyDown);
+      return () => window.removeEventListener("keydown", onKeyDown);
+    }, [flip, leaving]);
 
   return (
     <motion.div
@@ -69,7 +104,7 @@ export default function Template({
           : { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
       }
       onAnimationComplete={() => {
-        if (leaving) router.push(chapters[idx + leaving]);
+        if (leaving) router.push(chapters[idx + leaving].href);
       }}
       style={{
         x,

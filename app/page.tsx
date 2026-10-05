@@ -41,9 +41,9 @@ export default function Cover() {
 
       <motion.p
         {...fadeUp(0.45)}
-        className="mt-3 font-mono text-xs tracking-wide text-[#e2492c]"
+        className="mt-3 font-mono text-xs tracking-wide text-open"
       >
-        Interning at Datafuel
+        Open for Work
       </motion.p>
 
       <motion.div {...fadeUp(0.55)} className="mt-4 text-accent" aria-hidden>
@@ -98,8 +98,22 @@ export default function Cover() {
         {site.location} · MMV
       </motion.p>
 
+      {/* gesture hint — arrows on laptops/desktops, swipes on touch screens */}
       <motion.p {...fadeUp(1.1)} className="mt-6 font-hand text-xl text-note">
-        pull up a chair, stay a while.
+        <span className="hidden lg:inline">
+          <kbd className="keycap" aria-label="Left arrow key">
+            ←
+          </kbd>{" "}
+          to go back
+          <span className="mx-1.5 text-ink-faded">&amp;</span>
+          <kbd className="keycap" aria-label="Right arrow key">
+            →
+          </kbd>{" "}
+          to go forward
+        </span>
+        <span className="lg:hidden">
+          swipe right to go forward, swipe left to go backwards
+        </span>
       </motion.p>
     </div>
   );

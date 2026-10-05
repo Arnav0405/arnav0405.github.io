@@ -8,6 +8,7 @@
     --ink: #2b2620;
     --ink-faded: #6b6154;
     --accent: #0e134e;
+    --open: #1f6b3a;
     --note: #7a7265;
     --sheet-shadow: rgba(43, 38, 32, 0.18);
     --grain-opacity: 0.05;
@@ -22,6 +23,7 @@
     --ink: #e8dcc8;
     --ink-faded: #a89878;
     --accent: #d9a05b;
+    --open: #7fc98b;
     --note: #b3a184;
     --sheet-shadow: rgba(0, 0, 0, 0.55);
     --grain-opacity: 0.08;
@@ -36,8 +38,9 @@
     --color-ink: var(--ink);
     --color-ink-faded: var(--ink-faded);
     --color-accent: var(--accent);
+    --color-open: var(--open);
     --color-note: var(--note);
-    --font-serif: var(--font-lora), Georgia, serif;
+    --font-serif: var(--font-newsreader), Georgia, serif;
     --font-hand: var(--font-caveat), cursive;
 }
 
@@ -142,6 +145,27 @@ a.tech-chip:focus-visible {
     a.tech-chip:focus-visible {
         transform: none;
     }
+}
+
+/* keyboard keycap, for gesture hints */
+.keycap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.65em;
+    height: 1.65em;
+    padding: 0 0.35em;
+    vertical-align: middle;
+    border-radius: 5px;
+    background: var(--chip-well);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    line-height: 1;
+    box-shadow:
+        inset 1.5px 2px 3px var(--chip-shadow-dark),
+        inset -1px -1.5px 2px var(--chip-shadow-light),
+        0 1px 0 var(--chip-shadow-dark);
 }
 
 /* desk clock, pressed from the same paper stock */

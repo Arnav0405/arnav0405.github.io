@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Lora, Caveat } from "next/font/google";
+import { Newsreader, Caveat } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -8,7 +8,12 @@ import { Colophon } from "@/components/Colophon";
 import { MusicToggle } from "@/components/MusicToggle";
 import { DeskClock } from "@/components/DeskClock";
 
-const lora = Lora({ subsets: ["latin"], variable: "--font-lora" });
+const newsreader = Newsreader({
+    subsets: ["latin"],
+    axes: ["opsz"],
+    style: ["normal", "italic"],
+    variable: "--font-newsreader",
+});
 const caveat = Caveat({ subsets: ["latin"], variable: "--font-caveat" });
 
 export const metadata: Metadata = {
@@ -23,7 +28,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${lora.variable} ${caveat.variable} antialiased`}
+      className={`${newsreader.variable} ${caveat.variable} antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-desk font-serif text-ink">
@@ -33,8 +38,9 @@ export default function RootLayout({
             <ThemeToggle />
           </div>
           <BookmarkNav />
+          {/* z-0: the page sheet (z-10) slides over the clock instead of under it */}
           <div
-            className="pointer-events-none fixed bottom-5 right-5 z-40 hidden lg:block"
+            className="pointer-events-none fixed bottom-5 right-5 z-0 hidden lg:block"
             aria-hidden="true"
           >
             <DeskClock />

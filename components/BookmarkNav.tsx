@@ -2,23 +2,19 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const chapters = [
-  { href: "/", label: "Cover" },
-  { href: "/about", label: "Prologue" },
-  { href: "/experience", label: "Experience" },
-  { href: "/projects", label: "Works" },
-];
+import { chapters, chapterIndex } from "@/content/chapters";
 
 export function BookmarkNav() {
   const pathname = usePathname();
-  const link = (c: (typeof chapters)[number]) => (
+  const current = chapterIndex(pathname);
+
+  const link = (c: (typeof chapters)[number], i: number) => (
     <Link
       key={c.href}
       href={c.href}
-      aria-current={pathname === c.href ? "page" : undefined}
+      aria-current={i === current ? "page" : undefined}
       className={`font-hand text-xl leading-none transition hover:text-accent ${
-        pathname === c.href ? "text-accent" : "text-ink-faded"
+        i === current ? "text-accent" : "text-ink-faded"
       }`}
     >
       {c.label}

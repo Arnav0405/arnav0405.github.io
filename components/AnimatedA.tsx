@@ -15,6 +15,14 @@ const STROKES = [
   },
 ];
 
+// Cumulative start time per stroke, so each one begins where the last ended.
+// Derived once at module scope rather than accumulated inside render.
+const TIMED_STROKES = STROKES.map(({ d, duration }, i) => ({
+  d,
+  duration,
+  delay: STROKES.slice(0, i).reduce((sum, s) => sum + s.duration, 0),
+}));
+
 const TOTAL = STROKES.reduce((sum, s) => sum + s.duration, 0);
 const PAUSE = 1.8; // hold the finished signature before redrawing
 const CYCLE = TOTAL + PAUSE;
@@ -27,7 +35,6 @@ const strokeProps = {
 
 export function AnimatedA({ loop = false }: { loop?: boolean }) {
   const reduceMotion = useReducedMotion();
-  let elapsed = 0;
 
   return (
     <motion.svg
@@ -39,21 +46,18 @@ export function AnimatedA({ loop = false }: { loop?: boolean }) {
       initial={reduceMotion ? false : "hidden"}
       animate="visible"
     >
-      {STROKES.map((stroke) => {
-        const delay = elapsed;
-        elapsed += stroke.duration;
-
+      {TIMED_STROKES.map(({ d, duration, delay }) => {
         if (reduceMotion) {
-          return <path key={stroke.d} d={stroke.d} {...strokeProps} />;
+          return <path key={d} d={d} {...strokeProps} />;
         }
 
         if (loop) {
           const start = delay / CYCLE;
-          const end = (delay + stroke.duration) / CYCLE;
+          const end = (delay + duration) / CYCLE;
           return (
             <motion.path
-              key={stroke.d}
-              d={stroke.d}
+              key={d}
+              d={d}
               {...strokeProps}
               animate={{ pathLength: [0, 0, 1, 1], opacity: [0, 0, 1, 1] }}
               transition={{
@@ -68,8 +72,8 @@ export function AnimatedA({ loop = false }: { loop?: boolean }) {
 
         return (
           <motion.path
-            key={stroke.d}
-            d={stroke.d}
+            key={d}
+            d={d}
             {...strokeProps}
             variants={{
               hidden: { pathLength: 0, opacity: 0 },
@@ -77,11 +81,7 @@ export function AnimatedA({ loop = false }: { loop?: boolean }) {
                 pathLength: 1,
                 opacity: 1,
                 transition: {
-                  pathLength: {
-                    duration: stroke.duration,
-                    delay,
-                    ease: "easeInOut",
-                  },
+                  pathLength: { duration, delay, ease: "easeInOut" },
                   opacity: { duration: 0.01, delay },
                 },
               },
