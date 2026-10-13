@@ -112,7 +112,7 @@ export default function Cover() {
           to go forward
         </span>
         <span className="lg:hidden">
-          swipe right to go forward, swipe left to go backwards
+          swipe left to go forward, swipe right to go backwards
         </span>
       </motion.p>
     </div>
