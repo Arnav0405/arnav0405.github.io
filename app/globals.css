@@ -4,32 +4,62 @@
 
 :root {
     --desk: #e6dcc8;
-    --paper: #f7f1e3;
+    /* the stock is mixed slightly lighter than it should read: the grain below
+       pulls it down, and the sheet still has to sit visibly lighter than the
+       desk */
+    --paper: #fffcf3;
     --ink: #2b2620;
     --ink-faded: #6b6154;
     --accent: #0e134e;
     --open: #1f6b3a;
     --note: #7a7265;
     --sheet-shadow: rgba(43, 38, 32, 0.18);
-    --grain-opacity: 0.05;
+    --paper-edge-1: #e4d9c1;
+    --paper-edge-2: #f2e9d6;
     --chip-well: rgba(43, 38, 32, 0.07);
     --chip-shadow-dark: rgba(43, 38, 32, 0.28);
     --chip-shadow-light: rgba(255, 255, 255, 0.65);
+
+    /* the desk's own noise: coarse grayscale, over the desk colour */
+    --grain-desk: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+
+    /* paper stock: a fine grain over a slow, large-scale mottle — real paper
+       is uneven at both scales, and fine noise alone reads as flat digital
+       colour. Each layer's strength is baked into its SVG (rect opacity).
+       The filters are pinned to sRGB: the default (linearRGB) lifts the ink
+       constants to a pale grey instead of the brown they read as. */
+    --grain-paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.28 0 0 0 0 0.18 0 0 0 0.9 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='gamma' exponent='2.2'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.36'/%3E%3C/svg%3E");
+    --grain-paper-cloud: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='c' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.008' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.30 0 0 0 0 0.24 0 0 0 0 0.15 0 0 0 0.7 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)' opacity='0.08'/%3E%3C/svg%3E");
+    --paper-stock: var(--grain-paper-cloud), var(--grain-paper);
 }
 
 .dark {
     --desk: #16110b;
-    --paper: #241c12;
+    /* same trick: the dark paper is mixed a step lighter than it reads, so the
+       darker grain has room to bite without sinking into the desk */
+    --paper: #392a1b;
     --ink: #e8dcc8;
     --ink-faded: #a89878;
     --accent: #d9a05b;
     --open: #7fc98b;
     --note: #b3a184;
     --sheet-shadow: rgba(0, 0, 0, 0.55);
-    --grain-opacity: 0.08;
+    --paper-edge-1: #150f08;
+    --paper-edge-2: #322718;
     --chip-well: rgba(0, 0, 0, 0.25);
     --chip-shadow-dark: rgba(0, 0, 0, 0.6);
     --chip-shadow-light: rgba(232, 220, 200, 0.07);
+
+    --grain-desk: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+
+    /* the same stock, speckled with ink-black instead of brown: dark paper that
+       still has tooth, and a deeper mottle to match. On a dark sheet the dark
+       speckles alone can only span the gap down to black, so a second layer of
+       warm light flecks carries the rest — fibres catching the candlelight. */
+    --grain-paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.02 0 0 0 0 0.015 0 0 0 0 0.008 0 0 0 0.9 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='gamma' exponent='2'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.68'/%3E%3C/svg%3E");
+    --grain-paper-fleck: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.85 0 0 0 0 0.72 0 0 0 0 0.50 0 0 0 0.6 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='gamma' exponent='2.2'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='0.3'/%3E%3C/svg%3E");
+    --grain-paper-cloud: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='c' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.008' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.01 0 0 0 0 0.008 0 0 0 0 0.005 0 0 0 0.7 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)' opacity='0.22'/%3E%3C/svg%3E");
+    --paper-stock: var(--grain-paper-fleck), var(--grain-paper-cloud), var(--grain-paper);
 }
 
 @theme inline {
@@ -45,7 +75,10 @@
 }
 
 body {
-    background: var(--desk);
+    /* desk grain sits in the background, under everything: nothing is ever
+       laid over the text */
+    background-color: var(--desk);
+    background-image: var(--grain-desk);
     color: var(--ink);
 }
 
@@ -55,15 +88,23 @@ body {
     }
 }
 
-/* paper grain over everything, click-through */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 50;
-    pointer-events: none;
-    opacity: var(--grain-opacity);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+/* the page itself: paper stock with its edges stacked the way a loose leaf
+   sits on a desk. The grain is a background-image so it lives under the body
+   copy — type stays on clean paper. */
+.page-sheet {
+    background-color: var(--paper);
+    background-image: var(--paper-stock);
+    box-shadow:
+        0 1px 0 var(--paper-edge-1),
+        0 2px 0 var(--paper-edge-2),
+        0 3px 0 var(--paper-edge-1),
+        0 18px 38px -10px var(--sheet-shadow);
+}
+
+/* small pieces cut from the same stock, so they match the sheet */
+.paper-stock {
+    background-color: var(--paper);
+    background-image: var(--paper-stock);
 }
 
 /* candlelight glow, dark theme only */
@@ -132,6 +173,7 @@ body::before {
 a.tech-chip:hover,
 a.tech-chip:focus-visible {
     background: var(--paper);
+    background-image: var(--paper-stock);
     color: var(--accent);
     transform: translateY(-1px);
     box-shadow: 0 2px 5px var(--sheet-shadow);
@@ -174,7 +216,8 @@ a.tech-chip:focus-visible {
     height: 9.5rem;
     padding: 0.65rem;
     border-radius: 9999px;
-    background: var(--paper);
+    background-color: var(--paper);
+    background-image: var(--paper-stock);
     box-shadow:
         -5px -5px 12px var(--chip-shadow-light),
         7px 9px 20px var(--chip-shadow-dark);
@@ -196,7 +239,8 @@ a.tech-chip:focus-visible {
     flex-direction: column;
     height: 100%;
     padding: 1.15rem 1.25rem 1rem;
-    background: var(--paper);
+    background-color: var(--paper);
+    background-image: var(--paper-stock);
     color: inherit;
     text-decoration: none;
     transform: rotate(-1deg);
@@ -240,10 +284,4 @@ a.tech-chip:focus-visible {
         transform: none;
         transition: box-shadow 0.3s ease;
     }
-}
-
-.sheet-shadow {
-    box-shadow:
-        0 1px 3px var(--sheet-shadow),
-        0 14px 40px var(--sheet-shadow);
 }

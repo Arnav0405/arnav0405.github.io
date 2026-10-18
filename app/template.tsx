@@ -113,7 +113,7 @@ export default function Template({
         transformOrigin: "center top",
         touchAction: "pan-y",
       }}
-      className="sheet-shadow rounded-sm bg-paper px-6 py-10 sm:px-12 sm:py-14"
+      className="page-sheet rounded-sm px-6 py-10 sm:px-12 sm:py-14"
     >
       {children}
     </motion.div>

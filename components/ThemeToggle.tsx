@@ -40,7 +40,7 @@ export function ThemeToggle() {
       onClick={() => setTheme(dark ? "light" : "dark")}
       aria-label={dark ? "Blow out the candle" : "Light a candle"}
       title={dark ? "Blow out the candle" : "Light a candle"}
-      className="grid size-9 place-items-center rounded-full bg-paper text-ink-faded shadow-sm transition hover:scale-110 hover:text-accent"
+      className="grid size-9 place-items-center rounded-full paper-stock text-ink-faded shadow-sm transition hover:scale-110 hover:text-accent"
     >
       <CandleIcon lit={dark} />
     </button>

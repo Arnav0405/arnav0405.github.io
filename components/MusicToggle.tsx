@@ -95,7 +95,7 @@ export function MusicToggle() {
       onClick={() => setWantsMusic(!wantsMusic)}
       aria-label={wantsMusic ? "Stop the music" : "Play some music"}
       title={wantsMusic ? "Stop the music" : "Play some music"}
-      className="grid size-9 place-items-center rounded-full bg-paper text-ink-faded shadow-sm transition hover:scale-110 hover:text-accent"
+      className="grid size-9 place-items-center rounded-full paper-stock text-ink-faded shadow-sm transition hover:scale-110 hover:text-accent"
     >
       <VinylIcon playing={wantsMusic} />
     </button>
