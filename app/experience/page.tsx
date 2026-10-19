@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Spread, ChapterTitle, ChapterPagination } from "@/components/Notebook";
 import { experiencePage, toolboxPage } from "@/content/folios";
-import { editions, internships, skills } from "@/content/experience";
-import { techLinks } from "@/content/tech";
+import { editions, internships } from "@/content/experience";
+import { TechToolbox } from "@/components/TechToolbox";
 export const metadata: Metadata = { title: "Experience" };
 function Job({ index }: { index: number }) {
   const job = internships[index];
@@ -16,12 +16,7 @@ function Job({ index }: { index: number }) {
 export default function Experience() {
   return <>
     {internships.filter((_, i) => i % 2 === 0).map((job, pair) => <Spread key={job.company} chapter="EXPERIENCE" page={experiencePage + pair * 2} left={<Job index={pair * 2} />} right={<Job index={pair * 2 + 1} />} />)}
-    <Spread chapter="THE TOOLBOX" page={toolboxPage} left={<>
-      <p className="micro" style={{ color: "var(--accent)", marginBottom: 14 }}>APPENDIX A / THINGS I WORK WITH</p>
-      <h2 className="project-title">A growing toolbox.</h2>
-      <dl style={{ marginTop: 25 }}>{Object.entries(skills).map(([group, items]) => <div className="skill-group" key={group}><dt className="micro">{group}</dt><dd>{items.map(item => techLinks[item] ? <a className="tech-chip" key={item} href={techLinks[item]}>{item}</a> : <span className="tech-chip" key={item}>{item}</span>)}</dd></div>)}</dl>
-      <p className="hand-note" style={{ marginTop: 20 }}>the right tool is the one that helps you build.</p>
-    </>} right={<>
+    <Spread chapter="THE TOOLBOX" page={toolboxPage} left={<TechToolbox />} right={<>
       <p className="micro" style={{ color: "var(--accent)" }}>APPENDIX B / TAKE A COPY</p>
       <h2 className="project-title">Resume<br /><em>For Employers.</em></h2>
       <p className="reading" style={{ color: "var(--ink-faded)", marginBottom: 12 }}>I am a ML Engineer, but also have published academic papers.</p>

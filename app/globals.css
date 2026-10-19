@@ -49,8 +49,8 @@ a:hover { color: var(--accent); }
 .cover-title { font-size: clamp(48px, 5.5vw, 76px); font-weight: 400; line-height: .99; letter-spacing: -.045em; margin: 25px 0 18px; }
 .cover-title em { font-weight: 400; }
 .cover-role { font-size: 18px; max-width: 290px; line-height: 1.55; color: var(--ink-faded); }
-.availability { margin: 20px 0 26px; font-size: 10px; letter-spacing: .06em; font-family: ui-monospace, monospace; color: var(--open); display: flex; gap: 8px; align-items: center; }
-.availability::before { content: ''; width: 6px; height: 6px; border-radius: 100%; background: currentColor; }
+.availability { margin: 20px 0 26px; font-size: 15px; line-height: 1.6; letter-spacing: .015em; font-family: ui-monospace, monospace; color: var(--open); display: flex; gap: 10px; align-items: center; }
+.availability::before { content: ''; width: 8px; height: 8px; flex-shrink: 0; border-radius: 100%; background: currentColor; }
 .contents { border-top: 1px solid var(--rule); padding-top: 16px; }
 .contents ol { list-style: none; padding: 0; margin: 10px 0 18px; }
 .contents a { padding: 8px 0; display: flex; align-items: baseline; gap: 13px; text-decoration: none; font-size: 19px; }
@@ -76,9 +76,27 @@ a:hover { color: var(--accent); }
 .study-note { border-top: 1px solid var(--rule); padding-top: 15px; margin-top: 22px; }
 .study-note .hand-note { transform: none; font-size: 21px; margin-top: 8px; }
 .stamp { border: 1px solid currentColor; color: var(--accent); padding: 7px 11px; font: 10px/1.6 ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase; transform: rotate(-7deg); display: inline-block; align-self: flex-start; }
-.skill-group { margin-bottom: 23px; }
-.skill-group dt { margin-bottom: 8px; color: var(--accent); }
-.skill-group dd { display: flex; flex-wrap: wrap; gap: 5px 15px; }
+.book-toolbox .entry-kicker { font-size: 11px; }
+.toolbox-groups { margin-top: 28px; }
+.toolbox-group { margin-bottom: 25px; }
+.toolbox-group dt { margin-bottom: 10px; color: var(--accent); font: 13px/1.7 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .06em; text-transform: uppercase; }
+.toolbox-tech-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+.toolbox-slot { flex: 0 0 auto; min-width: 0; }
+.toolbox-tech { display: inline-flex; min-height: 40px; align-items: center; padding: 7px 12px; border: 1px solid var(--rule); border-radius: 999px; background: var(--paper); box-shadow: 2px 2px 4px #17232d12, -2px -2px 4px #ffffff70; color: var(--ink-faded); font: 11px/1.4 ui-monospace, SFMono-Regular, Consolas, monospace; text-decoration: none; white-space: nowrap; transition: transform 180ms ease, opacity 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease; }
+.toolbox-tech:hover, .toolbox-tech:focus-visible { transform: translateY(-2px); border-color: var(--accent); color: var(--accent); box-shadow: 3px 4px 8px #17232d18, -2px -2px 5px #ffffff85; }
+.toolbox-tech-grid:has(.toolbox-tech:hover) .toolbox-tech:not(:hover), .toolbox-tech-grid:has(.toolbox-tech:focus-visible) .toolbox-tech:not(:focus-visible) { opacity: .38; }
+.dark .toolbox-tech { background: var(--paper-light); box-shadow: 2px 2px 5px #080e1670, -2px -2px 5px #ffffff0a; }
+.dark .toolbox-tech:hover, .dark .toolbox-tech:focus-visible { box-shadow: 3px 4px 8px #080e1680, -2px -2px 6px #ffffff12; }
+.toolbox-note { margin-top: 28px; }
+@media (hover: none), (pointer: coarse) {
+  .toolbox-tech-grid:has(.toolbox-tech:hover) .toolbox-tech:not(:hover), .toolbox-tech-grid:has(.toolbox-tech:focus-visible) .toolbox-tech:not(:focus-visible) { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .toolbox-tech { transition: none; }
+}
+@media (max-width: 600px) {
+  .availability { font-size: 14px; }
+}
 .edition-sheet { display: block; padding: 17px 0; border-bottom: 1px solid var(--rule); text-decoration: none; }
 .edition-sheet span { display: block; }
 .chapter-pagination { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin: -10px 0 28px; padding: 0 4px; }

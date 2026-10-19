@@ -41,6 +41,11 @@ export const techLinks: Record<string, string> = {
   HTML: "https://developer.mozilla.org/en-US/docs/Web/HTML",
 
   // Skills appendix
+  NextJS: "https://nextjs.org",
+  GCP: "https://cloud.google.com",
+  AWS: "https://aws.amazon.com",
+  Databricks: "https://www.databricks.com",
+  SnowFlake: "https://www.snowflake.com/en/",
   Python: "https://www.python.org",
   "C++": "https://isocpp.org",
   TypeScript: "https://www.typescriptlang.org",
