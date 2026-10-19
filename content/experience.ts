@@ -39,14 +39,14 @@ export type Edition = {
 export const editions: Edition[] = [
   {
     discipline: "Engineering",
-    title: "The Full Stack Edition",
-    blurb: "Platforms, async back ends, scrapers at serious scale.",
+    title: "The Engineering Edition",
+    blurb: "Platforms, async back ends, scrapers at scale, agent tooling.",
     href: "/resume.pdf",
   },
   {
     discipline: "Research",
-    title: "The Machine Learning Edition",
-    blurb: "Models, training runs, evaluation, agent tooling.",
+    title: "The Researcher Edition",
+    blurb: "Models, evaluation, expiriments, academic papers.",
     href: "/resume-ml.pdf",
   },
 ];

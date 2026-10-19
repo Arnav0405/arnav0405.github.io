@@ -1,42 +1,8 @@
 "use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { chapters, chapterIndex } from "@/content/chapters";
-
 export function BookmarkNav() {
-  const pathname = usePathname();
-  const current = chapterIndex(pathname);
-
-  const link = (c: (typeof chapters)[number], i: number) => (
-    <Link
-      key={c.href}
-      href={c.href}
-      aria-current={i === current ? "page" : undefined}
-      className={`font-hand text-xl leading-none transition hover:text-accent ${
-        i === current ? "text-accent" : "text-ink-faded"
-      }`}
-    >
-      {c.label}
-    </Link>
-  );
-
-  return (
-    <>
-      {/* bookmark ribbon, desktop */}
-      <nav
-        aria-label="Chapters"
-        className="fixed left-5 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-4 lg:flex"
-      >
-        {chapters.map(link)}
-      </nav>
-      {/* compact top nav, mobile/tablet */}
-      <nav
-        aria-label="Chapters"
-        className="relative z-40 flex flex-wrap items-center gap-x-5 gap-y-2 px-4 pr-28 pt-5 lg:hidden"
-      >
-        {chapters.map(link)}
-      </nav>
-    </>
-  );
+  const current = chapterIndex(usePathname());
+  return <nav className="chapter-tabs" aria-label="Chapters">{chapters.map((chapter, i) => <Link key={chapter.href} href={chapter.href} className="chapter-tab" aria-current={i === current ? "page" : undefined}><span className="micro">{chapter.numeral}</span>{chapter.label}</Link>)}</nav>;
 }

@@ -1,287 +1,149 @@
 @import "tailwindcss";
-
 @custom-variant dark (&:where(.dark, .dark *));
-
 :root {
-    --desk: #e6dcc8;
-    /* the stock is mixed slightly lighter than it should read: the grain below
-       pulls it down, and the sheet still has to sit visibly lighter than the
-       desk */
-    --paper: #fffcf3;
-    --ink: #2b2620;
-    --ink-faded: #6b6154;
-    --accent: #0e134e;
-    --open: #1f6b3a;
-    --note: #7a7265;
-    --sheet-shadow: rgba(43, 38, 32, 0.18);
-    --paper-edge-1: #e4d9c1;
-    --paper-edge-2: #f2e9d6;
-    --chip-well: rgba(43, 38, 32, 0.07);
-    --chip-shadow-dark: rgba(43, 38, 32, 0.28);
-    --chip-shadow-light: rgba(255, 255, 255, 0.65);
-
-    /* the desk's own noise: coarse grayscale, over the desk colour */
-    --grain-desk: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-
-    /* paper stock: a fine grain over a slow, large-scale mottle — real paper
-       is uneven at both scales, and fine noise alone reads as flat digital
-       colour. Each layer's strength is baked into its SVG (rect opacity).
-       The filters are pinned to sRGB: the default (linearRGB) lifts the ink
-       constants to a pale grey instead of the brown they read as. */
-    --grain-paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.28 0 0 0 0 0.18 0 0 0 0.9 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='gamma' exponent='2.2'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.36'/%3E%3C/svg%3E");
-    --grain-paper-cloud: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='c' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.008' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.30 0 0 0 0 0.24 0 0 0 0 0.15 0 0 0 0.7 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)' opacity='0.08'/%3E%3C/svg%3E");
-    --paper-stock: var(--grain-paper-cloud), var(--grain-paper);
+  --desk: #dedbd0; --paper: #f5f0df; --paper-light: #faf6e9; --ink: #26394a; --ink-faded: #657078; --accent: #a44131; --ochre: #c29b54; --open: #486954; --note: #637164; --rule: #26394a30; --window: #dfba6b;
+  --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23816b43' opacity='.065' filter='url(%23n)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
 }
-
-.dark {
-    --desk: #16110b;
-    /* same trick: the dark paper is mixed a step lighter than it reads, so the
-       darker grain has room to bite without sinking into the desk */
-    --paper: #392a1b;
-    --ink: #e8dcc8;
-    --ink-faded: #a89878;
-    --accent: #d9a05b;
-    --open: #7fc98b;
-    --note: #b3a184;
-    --sheet-shadow: rgba(0, 0, 0, 0.55);
-    --paper-edge-1: #150f08;
-    --paper-edge-2: #322718;
-    --chip-well: rgba(0, 0, 0, 0.25);
-    --chip-shadow-dark: rgba(0, 0, 0, 0.6);
-    --chip-shadow-light: rgba(232, 220, 200, 0.07);
-
-    --grain-desk: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
-
-    /* the same stock, speckled with ink-black instead of brown: dark paper that
-       still has tooth, and a deeper mottle to match. On a dark sheet the dark
-       speckles alone can only span the gap down to black, so a second layer of
-       warm light flecks carries the rest — fibres catching the candlelight. */
-    --grain-paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.02 0 0 0 0 0.015 0 0 0 0 0.008 0 0 0 0.9 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='gamma' exponent='2'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.68'/%3E%3C/svg%3E");
-    --grain-paper-fleck: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.85 0 0 0 0 0.72 0 0 0 0 0.50 0 0 0 0.6 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='gamma' exponent='2.2'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='0.3'/%3E%3C/svg%3E");
-    --grain-paper-cloud: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='c' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.008' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.01 0 0 0 0 0.008 0 0 0 0 0.005 0 0 0 0.7 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)' opacity='0.22'/%3E%3C/svg%3E");
-    --paper-stock: var(--grain-paper-fleck), var(--grain-paper-cloud), var(--grain-paper);
-}
-
+.dark { --desk: #141f2b; --paper: #223342; --paper-light: #293c4a; --ink: #e3dfcc; --ink-faded: #b2baaf; --accent: #e29272; --ochre: #c7a96f; --open: #b2c5a1; --note: #b9c4af; --rule: #e3dfcc30; --window: #edb65c; }
 @theme inline {
-    --color-desk: var(--desk);
-    --color-paper: var(--paper);
-    --color-ink: var(--ink);
-    --color-ink-faded: var(--ink-faded);
-    --color-accent: var(--accent);
-    --color-open: var(--open);
-    --color-note: var(--note);
-    --font-serif: var(--font-newsreader), Georgia, serif;
-    --font-hand: var(--font-caveat), cursive;
+  --color-desk: var(--desk); --color-paper: var(--paper); --color-ink: var(--ink); --color-ink-faded: var(--ink-faded); --color-accent: var(--accent); --color-open: var(--open); --color-note: var(--note);
+  --font-serif: var(--font-newsreader), Georgia, serif; --font-hand: var(--font-caveat), cursive;
 }
-
-body {
-    /* desk grain sits in the background, under everything: nothing is ever
-       laid over the text */
-    background-color: var(--desk);
-    background-image: var(--grain-desk);
-    color: var(--ink);
+* { box-sizing: border-box; }
+html { height: auto; min-height: 100%; overflow-y: auto; scroll-behavior: smooth; }
+body { height: auto; min-height: 100vh; overflow: visible; margin: 0; background: var(--desk); background-image: var(--grain); background-size: 180px 180px; color: var(--ink); }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+a { text-underline-offset: .22em; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+::selection { background: #ba754b40; }
+.skip-link { position: fixed; left: 20px; top: -80px; z-index: 100; padding: 12px 20px; background: var(--paper); }
+.skip-link:focus { top: 12px; }
+.site-header { max-width: 1320px; margin: auto; padding: 28px 42px 20px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.wordmark { display: flex; gap: 12px; align-items: center; text-decoration: none; }
+.wordmark-mark { display: inline-flex; color: var(--accent); }
+.micro { font: 10px/1.7 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .13em; text-transform: uppercase; }
+.wordmark .micro { font-size: 9px; }
+.toolbar { display: flex; align-items: center; gap: 3px; }
+.tool-button { min-width: 44px; height: 44px; display: inline-flex; gap: 8px; align-items: center; justify-content: center; background: transparent; border: 0; color: var(--ink); border-radius: 2px; }
+.tool-button:hover { background: var(--rule); color: var(--accent); }
+.tool-button svg { width: 21px; height: 21px; }
+.notebook-shell { max-width: 1320px; padding: 0 42px; margin: auto; }
+.chapter-tabs { display: flex; align-items: end; justify-content: flex-end; padding-right: 24px; gap: 5px; position: relative; z-index: 2; }
+.chapter-tab { display: flex; align-items: center; gap: 10px; padding: 11px 22px 10px; color: var(--ink-faded); font-size: 15px; border: 1px solid var(--rule); border-bottom: 0; background: var(--paper); border-radius: 5px 6px 0 0; text-decoration: none; }
+.chapter-tab[aria-current='page'] { color: var(--accent); padding-top: 16px; background: var(--paper-light); }
+.chapter-tab .micro { font-size: 8px; }
+.spread { display: grid; grid-template-columns: 1fr 1fr; position: relative; background: var(--paper); background-image: var(--grain); background-size: 180px 180px; box-shadow: 0 2px 0 var(--paper), 0 4px 0 var(--rule), 0 6px 0 var(--paper), 0 18px 40px -22px #17232d60; border-radius: 3px 5px 5px 3px; margin-bottom: 46px; }
+.spread::after { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 30px; transform: translateX(-50%); pointer-events: none; background: linear-gradient(90deg, transparent, #17232d0a 38%, #17232d24 49%, #fff2 52%, transparent); }
+.leaf { min-width: 0; padding: 25px 42px; display: flex; flex-direction: column; min-height: 660px; position: relative; }
+.leaf:first-child { background: linear-gradient(100deg, #fff1, transparent 60%); }
+.folio-top, .folio-bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--ink-faded); }
+.folio-top { padding-bottom: 13px; border-bottom: 1px solid var(--rule); }
+.folio-bottom { margin-top: auto; padding-top: 20px; }
+.leaf-body { flex: 1; padding: 30px 0 20px; display: flex; flex-direction: column; justify-content: center; }
+.leaf-body > :last-child { margin-bottom: 0; }
+.leaf .micro { font-size: 9px; }
+.cover-kicker { display: flex; align-items: center; gap: 10px; color: var(--ink-faded); }
+.cover-kicker::before { content: ''; width: 25px; border-top: 1px solid var(--accent); }
+.cover-title { font-size: clamp(48px, 5.5vw, 76px); font-weight: 400; line-height: .99; letter-spacing: -.045em; margin: 25px 0 18px; }
+.cover-title em { font-weight: 400; }
+.cover-role { font-size: 18px; max-width: 290px; line-height: 1.55; color: var(--ink-faded); }
+.availability { margin: 20px 0 26px; font-size: 10px; letter-spacing: .06em; font-family: ui-monospace, monospace; color: var(--open); display: flex; gap: 8px; align-items: center; }
+.availability::before { content: ''; width: 6px; height: 6px; border-radius: 100%; background: currentColor; }
+.contents { border-top: 1px solid var(--rule); padding-top: 16px; }
+.contents ol { list-style: none; padding: 0; margin: 10px 0 18px; }
+.contents a { padding: 8px 0; display: flex; align-items: baseline; gap: 13px; text-decoration: none; font-size: 19px; }
+.contents .dots { flex: 1; border-bottom: 1px dotted var(--rule); }
+.contact-links { display: flex; flex-wrap: wrap; gap: 13px 22px; font-size: 13px; margin-top: 19px; }
+.contact-links a { text-decoration-color: var(--rule); }
+.hand-note { font-family: var(--font-caveat), cursive; font-size: 23px; line-height: 1.25; color: var(--note); transform: rotate(-3deg); }
+[data-motion-paused='true'] * { animation-play-state: paused !important; }
+.chapter-heading { margin-bottom: 25px; }
+.chapter-heading h1 { font-size: clamp(38px, 4vw, 52px); font-weight: 400; line-height: 1.1; margin-top: 12px; letter-spacing: -.025em; }
+.chapter-heading .micro { color: var(--accent); }
+.reading { font-size: 17px; line-height: 1.75; }
+.reading p + p { margin-top: 18px; }
+.reading h2 { font-size: 30px; line-height: 1.2; font-weight: 400; letter-spacing: -.02em; margin: 12px 0 14px; }
+.reading h3 { font-size: 21px; line-height: 1.4; }
+.project-title { font-size: 30px; line-height: 1.15; font-weight: 400; margin: 16px 0; letter-spacing: -.025em; }
+.project-title a { text-decoration: none; }
+.project-title a::after { content: ' ↗'; font-size: 18px; color: var(--accent); white-space: nowrap; }
+.project-summary { font-size: 16px; line-height: 1.8; }
+.tech-list { display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 17px 0 0; margin: 20px 0 0; list-style: none; border-top: 1px solid var(--rule); }
+.tech-chip { font: 10px/1.7 ui-monospace, monospace; color: var(--ink-faded); text-decoration: none; }
+.project-note { margin: 28px 0 0; padding-left: 18px; border-left: 2px solid var(--ochre); }
+.study-note { border-top: 1px solid var(--rule); padding-top: 15px; margin-top: 22px; }
+.study-note .hand-note { transform: none; font-size: 21px; margin-top: 8px; }
+.stamp { border: 1px solid currentColor; color: var(--accent); padding: 7px 11px; font: 10px/1.6 ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase; transform: rotate(-7deg); display: inline-block; align-self: flex-start; }
+.skill-group { margin-bottom: 23px; }
+.skill-group dt { margin-bottom: 8px; color: var(--accent); }
+.skill-group dd { display: flex; flex-wrap: wrap; gap: 5px 15px; }
+.edition-sheet { display: block; padding: 17px 0; border-bottom: 1px solid var(--rule); text-decoration: none; }
+.edition-sheet span { display: block; }
+.chapter-pagination { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin: -10px 0 28px; padding: 0 4px; }
+.chapter-pagination a { padding: 10px 0; text-decoration: none; font-size: 16px; }
+.site-footer { max-width: 1236px; margin: 0 auto; padding: 0 10px 32px; display: flex; justify-content: space-between; gap: 20px; color: var(--ink-faded); }
+.footer-credit { font-size: 11px; }
+.underline-center { text-decoration: underline; text-decoration-color: var(--rule); }
+.asterism { text-align: center; color: var(--accent); margin: 25px 0; }
+@media (min-width: 1100px) { .cover-spread .leaf { min-height: 720px; } }
+@media (max-width: 1050px) { .site-header { padding: 22px 24px 18px; } .notebook-shell { padding: 0 24px; } .leaf { padding: 22px 28px; } .chapter-tab { padding-left: 17px; padding-right: 17px; } .cover-title { font-size: 55px; } }
+@media (max-width: 1023px) {
+  .site-header { padding: 18px 18px 16px; gap: 10px; } .wordmark .micro { font-size: 8px; letter-spacing: .06em; } .toolbar { gap: 0; } .tool-button { min-width: 40px; }
+  .notebook-shell { padding: 0 14px; } .chapter-tabs { justify-content: flex-start; gap: 4px; padding: 0 7px; } .chapter-tab { font-size: 14px; gap: 6px; padding: 10px 12px; } .chapter-tab .micro { display: none; }
+  .spread { grid-template-columns: 1fr; margin-bottom: 30px; } .spread::after { display: none; } .leaf { min-height: 0; padding: 22px 25px; } .leaf + .leaf { border-top: 1px solid var(--rule); } .leaf-body { padding: 28px 0 20px; width: 100%; max-width: 600px; margin: auto; } .leaf:first-child .leaf-body { padding-top: 22px; } .cover-spread .leaf:first-child { order: 2; } .cover-spread .leaf:last-child { order: 1; border-top: 0; border-bottom: 1px solid var(--rule); } .cover-title { font-size: clamp(44px, 15vw, 66px); } .cover-role { max-width: 300px; } .reading { font-size: 17px; } .project-summary { font-size: 17px; } .site-footer { flex-direction: column; gap: 10px; padding: 0 5px 25px; } .chapter-pagination .micro { display: none; }
 }
-
-@media (max-width: 640px) {
-    html {
-        font-size: 85.5%;
-    }
+@media (max-width: 380px) {
+  .wordmark .micro { display: none; }
+  .chapter-tab { font-size: 13px; padding-left: 8px; padding-right: 8px; }
+  .leaf { padding-left: 20px; padding-right: 20px; }
 }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
 
-/* the page itself: paper stock with its edges stacked the way a loose leaf
-   sits on a desk. The grain is a background-image so it lives under the body
-   copy — type stays on clean paper. */
-.page-sheet {
-    background-color: var(--paper);
-    background-image: var(--paper-stock);
-    box-shadow:
-        0 1px 0 var(--paper-edge-1),
-        0 2px 0 var(--paper-edge-2),
-        0 3px 0 var(--paper-edge-1),
-        0 18px 38px -10px var(--sheet-shadow);
+/* Botanical print: the canvas stays transparent so the book's paper shows through. */
+.garden { margin: 0; width: 100%; }
+.garden-plate { position: relative; }
+.garden-imprint { display: flex; justify-content: space-between; color: var(--ink-faded); padding: 0 5px; }
+.garden-surface { position: relative; width: 100%; aspect-ratio: 25 / 29; touch-action: pan-y; }
+.garden-surface canvas, .garden-fallback { position: absolute; inset: 0; width: 100% !important; height: 100% !important; display: block; }
+.garden-surface[data-ready='true'] .garden-fallback { visibility: hidden; }
+.garden-ink-stem { stroke: #314f5b; } .garden-ink-teal { stroke: #247f7b; } .garden-ink-sage { stroke: #738746; }
+.garden-ink-coral { stroke: #ce594e; } .garden-ink-apricot { stroke: #ca813b; } .garden-ink-violet { stroke: #8760a7; } .garden-ink-gold { stroke: #b58b35; }
+.dark .garden-ink-stem { stroke: #b4cbc4; } .dark .garden-ink-teal { stroke: #79cfc1; } .dark .garden-ink-sage { stroke: #b5c68b; }
+.dark .garden-ink-coral { stroke: #ff9a8b; } .dark .garden-ink-apricot { stroke: #f3bf7c; } .dark .garden-ink-violet { stroke: #c1a1e6; } .dark .garden-ink-gold { stroke: #e7c67d; }
+.garden-caption { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin: 2px 0 14px; }
+.garden-caption .hand-note { font-size: clamp(20px, 2vw, 24px); margin: 0; }
+.garden-caption .micro { color: var(--ink-faded); font-size: 8px; white-space: nowrap; }
+.garden-tools { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid var(--rule); }
+.garden-tools > .micro { font-size: 8px; color: var(--ink-faded); }
+.garden-tools button { font: 11px/1.5 ui-monospace, monospace; color: var(--ink); background: transparent; border: 0; padding: 10px 2px 10px 12px; min-height: 44px; }
+.garden-tools button:hover { color: var(--accent); }
+.garden-tools button:disabled { opacity: .45; cursor: default; }
+.garden-tools button span { margin-left: 6px; }
+.reading-spread .leaf-body { justify-content: flex-start; padding-top: 36px; }
+.reading-spread .leaf { min-height: 600px; }
+.entry-kicker { color: var(--accent); margin-bottom: 22px; }
+.job-role { color: var(--ink-faded); margin-bottom: 22px; }
+.paper-title { font-size: 25px; font-weight: 400; line-height: 1.45; margin: 20px 0 16px; }
+.paper-venue { color: var(--ink-faded); font-size: 15px; line-height: 1.7; }
+.botanical-sprig { width: 120px; height: auto; color: var(--open); margin-top: 32px; align-self: center; }
+.research-papers article { border-top: 1px solid var(--rule); padding-top: 18px; margin-top: 22px; }
+.research-papers .entry-kicker { margin-bottom: 12px; }
+.research-papers .paper-title { font-size: 23px; margin-top: 0; }
+.research-artwork { width: 100%; max-width: 450px; margin: auto; }
+.research-artwork > svg { display: block; width: 100%; height: auto; margin: 12px 0; }
+.research-artwork figcaption { text-align: center; }
+.research-artwork .hand-note { margin: 0 0 15px; }
+.research-artwork figcaption .micro { color: var(--ink-faded); }
+@media (max-width: 1023px) {
+  .garden { max-width: 450px; margin: auto; }
+  .reading-spread .leaf { min-height: 0; }
+  .reading-spread .leaf-body { padding-top: 22px; }
+  .garden-caption .hand-note { font-size: 22px; }
 }
-
-/* small pieces cut from the same stock, so they match the sheet */
-.paper-stock {
-    background-color: var(--paper);
-    background-image: var(--paper-stock);
-}
-
-/* candlelight glow, dark theme only */
-.dark body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background: radial-gradient(
-        ellipse 60% 40% at 50% 0%,
-        rgba(217, 160, 91, 0.13),
-        transparent 70%
-    );
-}
-
-.drop-cap::first-letter {
-    float: left;
-    font-size: 3.1em;
-    line-height: 0.85;
-    padding-right: 0.09em;
-    font-weight: 600;
-    color: var(--accent);
-}
-
-.underline-center {
-    position: relative;
-    text-decoration: none;
-}
-
-.underline-center::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: -2px;
-    width: 100%;
-    height: 1px;
-    background: currentColor;
-    transform: translateX(-50%) scaleX(0);
-    transition: transform 0.3s ease;
-}
-
-.underline-center:hover::after,
-.underline-center:focus-visible::after {
-    transform: translateX(-50%) scaleX(1);
-}
-
-/* tech stamped into the paper, letterpress-style */
-.tech-chip {
-    display: inline-block;
-    padding: 2px 10px;
-    border-radius: 6px;
-    background: var(--chip-well);
-    color: var(--ink-faded);
-    text-decoration: none;
-    box-shadow:
-        inset 1.5px 2px 3px var(--chip-shadow-dark),
-        inset -1px -1.5px 2px var(--chip-shadow-light);
-    transition:
-        box-shadow 0.25s ease,
-        transform 0.25s ease,
-        color 0.25s ease,
-        background 0.25s ease;
-}
-
-a.tech-chip:hover,
-a.tech-chip:focus-visible {
-    background: var(--paper);
-    background-image: var(--paper-stock);
-    color: var(--accent);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 5px var(--sheet-shadow);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .tech-chip {
-        transition: color 0.25s ease;
-    }
-    a.tech-chip:hover,
-    a.tech-chip:focus-visible {
-        transform: none;
-    }
-}
-
-/* keyboard keycap, for gesture hints */
-.keycap {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 1.65em;
-    height: 1.65em;
-    padding: 0 0.35em;
-    vertical-align: middle;
-    border-radius: 5px;
-    background: var(--chip-well);
-    color: var(--accent);
-    font-family: var(--font-mono);
-    font-size: 0.85em;
-    line-height: 1;
-    box-shadow:
-        inset 1.5px 2px 3px var(--chip-shadow-dark),
-        inset -1px -1.5px 2px var(--chip-shadow-light),
-        0 1px 0 var(--chip-shadow-dark);
-}
-
-/* desk clock, pressed from the same paper stock */
-.desk-clock {
-    width: 9.5rem;
-    height: 9.5rem;
-    padding: 0.65rem;
-    border-radius: 9999px;
-    background-color: var(--paper);
-    background-image: var(--paper-stock);
-    box-shadow:
-        -5px -5px 12px var(--chip-shadow-light),
-        7px 9px 20px var(--chip-shadow-dark);
-}
-
-.desk-clock-dial {
-    width: 100%;
-    height: 100%;
-    border-radius: 9999px;
-    background: var(--chip-well);
-    box-shadow:
-        inset 2px 3px 6px var(--chip-shadow-dark),
-        inset -2px -2px 5px var(--chip-shadow-light);
-}
-
-/* the two resumes: loose sheets on the desk, straightening as you pick one up */
-.edition-sheet {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 1.15rem 1.25rem 1rem;
-    background-color: var(--paper);
-    background-image: var(--paper-stock);
-    color: inherit;
-    text-decoration: none;
-    transform: rotate(-1deg);
-    box-shadow:
-        0 1px 3px var(--sheet-shadow),
-        0 10px 26px var(--sheet-shadow);
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-}
-
-.edition-sheet-verso {
-    transform: rotate(1deg);
-}
-
-.edition-sheet:hover,
-.edition-sheet:focus-visible {
-    transform: rotate(0deg) translateY(-5px);
-    box-shadow:
-        0 2px 6px var(--sheet-shadow),
-        0 22px 44px var(--sheet-shadow);
-}
-
-.edition-sheet:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 4px;
-}
-
-.edition-rule {
-    display: block;
-    margin-top: auto;
-    margin-bottom: 0.7rem;
-    border-top: 1px solid var(--chip-well);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .edition-sheet,
-    .edition-sheet-verso,
-    .edition-sheet:hover,
-    .edition-sheet:focus-visible {
-        transform: none;
-        transition: box-shadow 0.3s ease;
-    }
+@media (max-width: 380px) {
+  .garden-caption { flex-wrap: wrap; }
+  .garden-tools { gap: 5px; }
+  .garden-tools > .micro { font-size: 7px; letter-spacing: .07em; }
 }

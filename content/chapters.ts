@@ -1,8 +1,8 @@
 export const chapters = [
-  { href: "/", label: "Cover" },
-  { href: "/about", label: "Prologue" },
-  { href: "/experience", label: "Experience" },
-  { href: "/projects", label: "Works" },
+  { href: "/", label: "Cover", numeral: "00" },
+  { href: "/about", label: "Prologue", numeral: "01" },
+  { href: "/experience", label: "Experience", numeral: "02" },
+  { href: "/projects", label: "Works", numeral: "03" },
 ];
 
 // `trailingSlash: true` in next.config makes the router report paths as "/about/".

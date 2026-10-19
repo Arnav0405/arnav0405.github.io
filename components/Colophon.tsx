@@ -1,39 +1,7 @@
-import { AnimatedA } from "@/components/AnimatedA";
 import { site } from "@/content/site";
-
 export function Colophon() {
-  return (
-    <footer className="relative z-10 mx-auto max-w-3xl px-4 pb-10 pt-6 text-center text-sm text-ink-faded">
-      <div className="mb-3 text-accent" aria-hidden>
-        <AnimatedA loop />
-      </div>
-      <p>
-        Set in Newsreader &amp; Caveat. Bound with Next.js. {site.location},{" "}
-        {site.edition}.
-      </p>
-      <p className="mt-2 flex justify-center gap-4">
-        <a
-          className="text-accent underline-center"
-          href={`mailto:${site.email}`}
-        >
-          Email
-        </a>
-        <a className="text-accent underline-center" href={site.github}>
-          GitHub
-        </a>
-        <a className="text-accent underline-center" href={site.linkedin}>
-          LinkedIn
-        </a>
-      </p>
-      <p className="mt-2">
-        Music:{" "}
-        <a
-          className="text-accent underline-offset-4 hover:underline"
-          href={site.music}
-        >
-          Bluerose (Twilight Ver.) by Hoshimachi Suisei
-        </a>
-      </p>
-    </footer>
-  );
+  return <footer className="site-footer">
+    <p className="micro">DRAWN WITH CODE. FILLED WITH CURIOSITY.<br />{site.location}, India · {site.edition}</p>
+    <div className="footer-credit"><p>Set in Newsreader &amp; Caveat. Bound with Next.js.</p><p style={{ marginTop: 5 }}>Music: <a href={site.music}>Bluerose (Twilight Ver.) — Hoshimachi Suisei ↗</a></p></div>
+  </footer>;
 }

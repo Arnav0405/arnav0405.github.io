@@ -1,101 +1,33 @@
 import type { Metadata } from "next";
-import { ChapterHeading } from "@/components/ChapterHeading";
-import { MarginNote } from "@/components/MarginNote";
-import { Asterism } from "@/components/Asterism";
+import { Spread, ChapterTitle, ChapterPagination } from "@/components/Notebook";
+import { experiencePage, toolboxPage } from "@/content/folios";
 import { editions, internships, skills } from "@/content/experience";
 import { techLinks } from "@/content/tech";
-
 export const metadata: Metadata = { title: "Experience" };
-
+function Job({ index }: { index: number }) {
+  const job = internships[index];
+  if (!job) return null;
+  return <>
+    {index === 0 ? <ChapterTitle href="/experience" subtitle="LEARNING IN THE REAL WORLD" /> : <p className="micro entry-kicker">THE NEXT STOP / {String(index + 1).padStart(2, "0")}</p>}
+    <div className="reading"><p className="micro">{job.period}</p><h2>{job.company}</h2><h3 className="job-role">{job.role}</h3>{job.story.map(p => <p key={p}>{p}</p>)}</div>
+    {job.note && <p className="hand-note project-note">{job.note}</p>}
+  </>;
+}
 export default function Experience() {
-  return (
-    <article>
-      <ChapterHeading numeral="III" title="Experience" />
-
-      <div className="space-y-12">
-        {internships.map((job) => (
-          <section key={job.company}>
-            {job.note && <MarginNote>{job.note}</MarginNote>}
-            <h2 className="text-2xl">
-              {job.role} · {job.company}
-            </h2>
-            <p className="mt-1 text-sm italic text-ink-faded">{job.period}</p>
-            {job.story.map((para) => (
-              <p key={para} className="mt-3 text-lg leading-8">
-                {para}
-              </p>
-            ))}
-          </section>
-        ))}
-      </div>
-
-      <Asterism />
-
-      <section>
-        <h2 className="mb-6 text-center text-sm uppercase tracking-[0.3em] text-ink-faded">
-          Appendix — Index of Skills
-        </h2>
-        <dl className="space-y-6">
-          {Object.entries(skills).map(([group, items]) => (
-            <div key={group}>
-              <dt className="text-sm font-semibold uppercase tracking-[0.15em] text-ink-faded">
-                {group}
-              </dt>
-              <dd>
-                <ul className="mt-3 flex flex-wrap gap-2 text-sm">
-                  {items.map((item) => (
-                    <li key={item}>
-                      {techLinks[item] ? (
-                        <a href={techLinks[item]} className="tech-chip">
-                          {item}
-                        </a>
-                      ) : (
-                        <span className="tech-chip">{item}</span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
-      <Asterism />
-
-      <section>
-        <h2 className="text-center text-sm uppercase tracking-[0.3em] text-ink-faded">
-          Issued in Two Editions
-        </h2>
-        <p className="mb-7 mt-2 text-center font-hand text-xl text-note">
-          <span aria-hidden>✎ </span>same work — take whichever copy you came
-          for.
-        </p>
-        <ul className="grid gap-7 sm:grid-cols-2">
-          {editions.map((edition, i) => (
-            <li key={edition.href}>
-              <a
-                href={edition.href}
-                className={`edition-sheet${i % 2 ? " edition-sheet-verso" : ""}`}
-              >
-                <span className="text-xs uppercase tracking-[0.25em] text-ink-faded">
-                  {edition.discipline}
-                </span>
-                <span className="mt-1.5 text-xl leading-snug">
-                  {edition.title}
-                </span>
-                <span className="mb-3.5 mt-2 text-sm leading-6 text-ink-faded">
-                  {edition.blurb}
-                </span>
-                <span className="edition-rule" aria-hidden />
-                <span className="text-sm uppercase tracking-[0.15em] text-accent">
-                  Read this edition · PDF
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </article>
-  );
+  return <>
+    {internships.filter((_, i) => i % 2 === 0).map((job, pair) => <Spread key={job.company} chapter="EXPERIENCE" page={experiencePage + pair * 2} left={<Job index={pair * 2} />} right={<Job index={pair * 2 + 1} />} />)}
+    <Spread chapter="THE TOOLBOX" page={toolboxPage} left={<>
+      <p className="micro" style={{ color: "var(--accent)", marginBottom: 14 }}>APPENDIX A / THINGS I WORK WITH</p>
+      <h2 className="project-title">A growing toolbox.</h2>
+      <dl style={{ marginTop: 25 }}>{Object.entries(skills).map(([group, items]) => <div className="skill-group" key={group}><dt className="micro">{group}</dt><dd>{items.map(item => techLinks[item] ? <a className="tech-chip" key={item} href={techLinks[item]}>{item}</a> : <span className="tech-chip" key={item}>{item}</span>)}</dd></div>)}</dl>
+      <p className="hand-note" style={{ marginTop: 20 }}>the right tool is the one that helps you build.</p>
+    </>} right={<>
+      <p className="micro" style={{ color: "var(--accent)" }}>APPENDIX B / TAKE A COPY</p>
+      <h2 className="project-title">Resume<br /><em>For Employers.</em></h2>
+      <p className="reading" style={{ color: "var(--ink-faded)", marginBottom: 12 }}>I am a ML Engineer, but also have published academic papers.</p>
+      {editions.map(edition => <a key={edition.href} href={edition.href} className="edition-sheet"><span className="micro" style={{ color: "var(--accent)" }}>{edition.discipline}</span><span style={{ fontSize: 23, margin: "8px 0" }}>{edition.title}</span><span style={{ fontSize: 15, lineHeight: 1.65, color: "var(--ink-faded)" }}>{edition.blurb}</span><span className="micro" style={{ marginTop: 15 }}>READ THIS EDITION ↓ PDF</span></a>)}
+      <p className="hand-note" style={{ marginTop: 32 }}>a few pages.</p>
+    </>} />
+    <ChapterPagination href="/experience" />
+  </>;
 }

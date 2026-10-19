@@ -1,120 +1,21 @@
-"use client";
-
 import Link from "next/link";
-import { motion, useReducedMotion } from "motion/react";
-import { AnimatedA } from "@/components/AnimatedA";
 import { site } from "@/content/site";
-
-const toc = [
-  { href: "/about", numeral: "I", title: "Prologue" },
-  { href: "/experience", numeral: "II", title: "Experience" },
-  { href: "/projects", numeral: "III", title: "Works" },
-];
-
+import { chapters } from "@/content/chapters";
+import { Spread, ChapterPagination } from "@/components/Notebook";
+import { BotanicalGarden } from "@/components/BotanicalGarden";
 export default function Cover() {
-  const reduce = useReducedMotion();
-  const fadeUp = (delay: number) => ({
-    initial: reduce ? { opacity: 0 } : { opacity: 0, y: 10 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.5, delay },
-  });
-
-  return (
-    <div className="flex min-h-[65vh] flex-col items-center justify-center py-8 text-center">
-      <motion.p
-        {...fadeUp(0.1)}
-        className="text-xs uppercase tracking-[0.4em] text-ink-faded"
-      >
-        {site.edition}
-      </motion.p>
-
-      <motion.h1 {...fadeUp(0.25)} className="mt-6 text-5xl sm:text-6xl">
-        {site.name}
-      </motion.h1>
-
-      <motion.p
-        {...fadeUp(0.4)}
-        className="mt-4 max-w-md text-lg italic text-ink-faded"
-      >
-        {site.role}
-      </motion.p>
-
-      <motion.p
-        {...fadeUp(0.45)}
-        className="mt-3 font-mono text-xs tracking-wide text-open"
-      >
-        Open for Work
-      </motion.p>
-
-      <motion.div {...fadeUp(0.55)} className="mt-4 text-accent" aria-hidden>
-        <AnimatedA />
-      </motion.div>
-
-      <motion.nav
-        {...fadeUp(0.7)}
-        aria-label="Table of contents"
-        className="mt-12 w-full max-w-sm text-left"
-      >
-        <h2 className="mb-4 text-center text-sm uppercase tracking-[0.3em] text-ink-faded">
-          Contents
-        </h2>
-        <ol className="space-y-3">
-          {toc.map((c) => (
-            <li key={c.href}>
-              <Link href={c.href} className="group flex items-baseline gap-2">
-                <span className="transition group-hover:text-accent">
-                  {c.title}
-                </span>
-                <span className="flex-1 border-b border-dotted border-ink-faded/50" />
-                <span className="text-ink-faded">{c.numeral}</span>
-              </Link>
-            </li>
-          ))}
-        </ol>
-      </motion.nav>
-
-      <motion.p {...fadeUp(0.85)} className="mt-12 flex gap-5 text-sm">
-        <a
-          className="text-accent underline-center"
-          href={`mailto:${site.email}`}
-        >
-          Email
-        </a>
-        <a className="text-accent underline-center" href={site.github}>
-          GitHub
-        </a>
-        <a className="text-accent underline-center" href={site.linkedin}>
-          LinkedIn
-        </a>
-        <a className="text-accent underline-center" href={site.resume}>
-          Resume
-        </a>
-      </motion.p>
-
-      <motion.p
-        {...fadeUp(1.0)}
-        className="mt-10 text-xs uppercase tracking-[0.3em] text-ink-faded"
-      >
-        {site.location} · MMV
-      </motion.p>
-
-      {/* gesture hint — arrows on laptops/desktops, swipes on touch screens */}
-      <motion.p {...fadeUp(1.1)} className="mt-6 font-hand text-xl text-note">
-        <span className="hidden lg:inline">
-          <kbd className="keycap" aria-label="Left arrow key">
-            ←
-          </kbd>{" "}
-          to go back
-          <span className="mx-1.5 text-ink-faded">&amp;</span>
-          <kbd className="keycap" aria-label="Right arrow key">
-            →
-          </kbd>{" "}
-          to go forward
-        </span>
-        <span className="lg:hidden">
-          swipe left to go forward, swipe right to go backwards
-        </span>
-      </motion.p>
-    </div>
-  );
+  return <>
+    <Spread cover chapter="A PERSONAL NOTEBOOK" page={1} left={<>
+      <BotanicalGarden />
+    </>} right={<>
+      <p className="cover-kicker micro">A WORK IN PROGRESS, BY DESIGN</p>
+      <h1 className="cover-title">Arnav<br /><em>Waghdhare.</em></h1>
+      <p className="cover-role">{site.role}</p>
+      <p className="availability">Open for work &amp; interesting conversations</p>
+      <nav className="contents" aria-label="Table of contents"><p className="micro">A FEW THINGS BETWEEN THESE PAGES</p><ol>{chapters.slice(1).map(c => <li key={c.href}><Link href={c.href}><span className="micro" style={{ color: "var(--accent)" }}>{c.numeral}</span><span>{c.label}</span><span className="dots" /><span aria-hidden="true">↗</span></Link></li>)}</ol></nav>
+      <div className="contact-links"><a href={`mailto:${site.email}`}>Email ↗</a><a href={site.github}>GitHub ↗</a><a href={site.linkedin}>LinkedIn ↗</a><a href={site.resume}>Resume ↓</a></div>
+      <p className="hand-note" style={{ marginTop: 32 }}>a record of things I make &amp; things I notice.</p>
+    </>} />
+    <ChapterPagination href="/" />
+  </>;
 }

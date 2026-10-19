@@ -1,11 +1,13 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Spread } from "@/components/Notebook";
+import { BotanicalSprig } from "@/components/BotanicalSprig";
 
 export const metadata: Metadata = { title: "Erratum" };
 
 export default function NotFound() {
   return (
-    <div className="py-20 text-center">
+    <Spread chapter="A MISSING PAGE" left={<><p className="hand-note">perhaps it is still growing.</p><BotanicalSprig /></>} right={<div className="reading">
       <p className="text-sm uppercase tracking-[0.3em] text-ink-faded">
         Erratum
       </p>
@@ -19,6 +21,6 @@ export default function NotFound() {
       >
         ← back to the cover
       </Link>
-    </div>
+    </div>} />
   );
 }

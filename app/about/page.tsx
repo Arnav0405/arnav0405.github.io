@@ -1,34 +1,21 @@
 import type { Metadata } from "next";
-import { ChapterHeading } from "@/components/ChapterHeading";
-import { MarginNote } from "@/components/MarginNote";
-import { Asterism } from "@/components/Asterism";
+import { Spread, ChapterTitle, ChapterPagination } from "@/components/Notebook";
+import { BotanicalSprig } from "@/components/BotanicalSprig";
 import { prologue, certificates, mentorship } from "@/content/about";
-
 export const metadata: Metadata = { title: "Prologue" };
-
 export default function About() {
-  return (
-    <article>
-      <ChapterHeading numeral="I" title="Prologue" />
-
-      <MarginNote>{certificates[0]}</MarginNote>
-      <p className="drop-cap text-lg leading-8">{prologue[0]}</p>
-
-      <MarginNote>{certificates[1]}</MarginNote>
-      <p className="mt-6 text-lg leading-8">{prologue[1]}</p>
-
-      <MarginNote>{certificates[2]}</MarginNote>
-      <p className="mt-6 text-lg leading-8">{prologue[2]}</p>
-
-      <Asterism />
-
-      <section>
-        <h2 className="text-sm uppercase tracking-[0.3em] text-ink-faded">
-          On Teaching
-        </h2>
-        <h3 className="mt-3 text-xl">{mentorship.title}</h3>
-        <p className="mt-3 text-lg leading-8">{mentorship.story}</p>
-      </section>
-    </article>
-  );
+  return <>
+    <Spread chapter="PROLOGUE" page={3} left={<>
+      <ChapterTitle href="/about" subtitle="A LITTLE CONTEXT" />
+      <div className="reading">{prologue.map(p => <p key={p}>{p}</p>)}</div>
+      <p className="hand-note project-note">Always learning. Usually by making something.</p>
+      <BotanicalSprig />
+    </>} right={<div className="reading">
+      <p className="micro" style={{ color: "var(--accent)" }}>NOTES ON LEARNING</p>
+      <h2>On teaching<br /><em>&amp; being taught.</em></h2>
+      <h3>{mentorship.title}</h3><p>{mentorship.story}</p>
+      <div className="study-note"><p className="micro">MILESTONES IN THE MARGIN</p>{certificates.map(c => <p className="hand-note" key={c}>{c}</p>)}</div>
+    </div>} />
+    <ChapterPagination href="/about" />
+  </>;
 }

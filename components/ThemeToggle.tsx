@@ -12,6 +12,7 @@ function CandleIcon({ lit }: { lit: boolean }) {
       stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="round"
+      aria-hidden="true"
     >
       <rect x="9" y="11" width="6" height="9" rx="1" />
       <line x1="12" y1="11" x2="12" y2="8.5" />
@@ -20,7 +21,6 @@ function CandleIcon({ lit }: { lit: boolean }) {
           d="M12 3c1.3 1.5 1.9 2.7 0 4.8-1.9-2.1-1.3-3.3 0-4.8z"
           fill="currentColor"
           stroke="none"
-          className="animate-pulse"
         />
       )}
     </svg>
@@ -38,9 +38,9 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(dark ? "light" : "dark")}
-      aria-label={dark ? "Blow out the candle" : "Light a candle"}
-      title={dark ? "Blow out the candle" : "Light a candle"}
-      className="grid size-9 place-items-center rounded-full paper-stock text-ink-faded shadow-sm transition hover:scale-110 hover:text-accent"
+      aria-label={dark ? "Switch to daylight edition" : "Switch to night edition"}
+      title={dark ? "Daylight edition" : "Night edition"}
+      className="tool-button"
     >
       <CandleIcon lit={dark} />
     </button>
