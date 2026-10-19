@@ -11,7 +11,7 @@ export default function Cover() {
       <p className="cover-kicker micro">A WORK IN PROGRESS, BY DESIGN</p>
       <h1 className="cover-title">Arnav<br /><em>Waghdhare.</em></h1>
       <p className="cover-role">{site.role}</p>
-      <p className="availability">Open for work &amp; interesting conversations</p>
+      <p className="availability">Open for work</p>
       <nav className="contents" aria-label="Table of contents"><p className="micro">A FEW THINGS BETWEEN THESE PAGES</p><ol>{chapters.slice(1).map(c => <li key={c.href}><Link href={c.href}><span className="micro" style={{ color: "var(--accent)" }}>{c.numeral}</span><span>{c.label}</span><span className="dots" /><span aria-hidden="true">↗</span></Link></li>)}</ol></nav>
       <div className="contact-links"><a href={`mailto:${site.email}`}>Email ↗</a><a href={site.github}>GitHub ↗</a><a href={site.linkedin}>LinkedIn ↗</a><a href={site.resume}>Resume ↓</a></div>
       <p className="hand-note" style={{ marginTop: 32 }}>a record of things I make &amp; things I notice.</p>
