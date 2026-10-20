@@ -8,6 +8,8 @@ export const certificates = [
   "Supervised Machine Learning — DeepLearning.AI, Nov 2024",
   "Advanced Learning Algorithms — DeepLearning.AI, Dec 2024",
   "Mastering Multi-Agent AI: Building Intelligent Collaborative Systems — IUCEE, Dec 2024",
+  "Intro to Snowflake for Devs, Data Scientists, Data Engineers  — Snowflake Coursera, Oct 2026",
+  "Architecting with Google Kubernetes Engine: Workloads — Google Cloud Coursera, Oct 2026",
 ];
 
 export const mentorship = {
