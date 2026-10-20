@@ -154,6 +154,30 @@ a:hover { color: var(--accent); }
 .research-artwork figcaption { text-align: center; }
 .research-artwork .hand-note { margin: 0 0 15px; }
 .research-artwork figcaption .micro { color: var(--ink-faded); }
+.research-artwork { --plume-teal: #247f7b; --plume-violet: #8760a7; --plume-coral: #ce594e; --plume-gold: #b58b35; }
+.dark .research-artwork { --plume-teal: #79cfc1; --plume-violet: #c1a1e6; --plume-coral: #ff9a8b; --plume-gold: #e7c67d; }
+.research-seed-drift { animation: research-seed-flight var(--flight-duration) ease-in-out var(--flight-delay) infinite; }
+.research-flower-rotation { transform-origin: 230px 265px; animation: research-flower-spin 90s linear infinite; }
+.research-seed-plume { stroke: var(--plume-teal); animation: research-seed-color calc(var(--flight-duration) * 1.8) linear var(--flight-delay) infinite, research-plume-flutter 3.2s ease-in-out var(--flight-delay) infinite; }
+@keyframes research-seed-flight {
+  0%, 100% { transform: translate(0, 0); }
+  30% { transform: translate(var(--drift-x), var(--drift-y)); }
+  65% { transform: translate(calc(var(--drift-x) * -.45), calc(var(--drift-y) * .4)); }
+}
+@keyframes research-flower-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes research-plume-flutter {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.12, .88); }
+}
+@keyframes research-seed-color {
+  0%, 100% { stroke: var(--plume-teal); }
+  25% { stroke: var(--plume-violet); }
+  50% { stroke: var(--plume-coral); }
+  75% { stroke: var(--plume-gold); }
+}
 @media (max-width: 1023px) {
   .garden { max-width: 450px; margin: auto; }
   .reading-spread .leaf { min-height: 0; }

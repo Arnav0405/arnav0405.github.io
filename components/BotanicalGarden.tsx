@@ -3,9 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 import { useNotebookMotion } from "./NotebookMotion";
-import { GARDEN_SEED, gardenGeometry, type GardenInk } from "./garden-geometry";
+import { FLOWER_COUNTS, GARDEN_SEED, gardenGeometry, type FlowerCount, type GardenInk } from "./garden-geometry";
 
-const fallbackPlants = gardenGeometry(GARDEN_SEED);
 const palettes: Record<"light" | "dark", Record<GardenInk, string>> = {
   light: { stem: "#314f5b", teal: "#247f7b", sage: "#738746", coral: "#ce594e", apricot: "#ca813b", violet: "#8760a7", gold: "#b58b35" },
   dark: { stem: "#b4cbc4", teal: "#79cfc1", sage: "#b5c68b", coral: "#ff9a8b", apricot: "#f3bf7c", violet: "#c1a1e6", gold: "#e7c67d" },
@@ -20,6 +19,9 @@ export function BotanicalGarden() {
   const state = useRef<{ reduced: boolean; hidden: boolean; theme: "light" | "dark" }>({ reduced, hidden, theme });
   const [ready, setReady] = useState(false);
   const [edition, setEdition] = useState(1);
+  const [flowerCount, setFlowerCount] = useState<FlowerCount>(8);
+  const [fallbackSeed, setFallbackSeed] = useState(GARDEN_SEED);
+  const fallbackPlants = gardenGeometry(fallbackSeed, flowerCount);
 
   useEffect(() => {
     state.current = { reduced, hidden, theme };
@@ -35,13 +37,16 @@ export function BotanicalGarden() {
       if (disposed) return;
       let visible = false;
       let seed = GARDEN_SEED;
+      const randomCount = () => FLOWER_COUNTS[Math.floor(Math.random() * FLOWER_COUNTS.length)];
+      let count = randomCount();
       let time = 0;
       let pointer: { x: number; y: number } | null = null;
       let observer: IntersectionObserver | undefined;
       let resize: ResizeObserver | undefined;
-      const geometry = () => gardenGeometry(seed).map(plant => ({ ...plant, strokes: plant.strokes.map(stroke => ({ ...stroke, path: new Path2D(stroke.d) })) }));
+      const geometry = () => gardenGeometry(seed, count).map(plant => ({ ...plant, strokes: plant.strokes.map(stroke => ({ ...stroke, path: new Path2D(stroke.d) })) }));
       let plants = geometry();
       let bends = plants.map(() => 0);
+      let bendVelocities = plants.map(() => 0);
       const running = () => visible && !state.current.reduced && !state.current.hidden;
       const instance = new P5(p => {
         let initialized = false;
@@ -63,9 +68,13 @@ export function BotanicalGarden() {
           controls.current = {
             refresh,
             planting: () => {
+              count = randomCount();
+              setFlowerCount(count);
               seed += 997;
+              setFallbackSeed(seed);
               plants = geometry();
               bends = plants.map(() => 0);
+              bendVelocities = plants.map(() => 0);
               container.dataset.seed = String(seed);
               time = 0;
               p.redraw();
@@ -81,6 +90,7 @@ export function BotanicalGarden() {
           });
           resize.observe(container);
           refresh();
+          setFlowerCount(count);
           setReady(true);
         };
         p.draw = () => {
@@ -89,16 +99,28 @@ export function BotanicalGarden() {
           p.clear();
           const ink = palettes[state.current.theme];
           const animate = running();
+          const elapsed = Math.min(p.deltaTime, 50) / 1000;
           if (animate) time += Math.min(p.deltaTime, 80) / 1000;
           p.push();
           p.scale(p.width / 500);
           for (const [index, plant] of plants.entries()) {
-            const distance = pointer ? Math.hypot(pointer.x - plant.x, pointer.y - (plant.y - plant.height * .65)) : 999;
-            const breeze = animate && pointer ? Math.max(0, 1 - distance / 150) * (pointer.x - plant.x) * .00024 : 0;
-            bends[index] = animate ? bends[index] + (breeze - bends[index]) * .09 : 0;
+            const distance = pointer ? Math.hypot(pointer.x - plant.x, pointer.y - Math.max(plant.y - plant.height, Math.min(plant.y - plant.height * .3, pointer.y))) : 999;
+            const breeze = animate && pointer ? Math.max(-.18, Math.min(.18, Math.max(0, 1 - distance / 220) * (pointer.x - plant.x) * .003)) : 0;
+            if (animate) {
+              // Small time steps keep the spring smooth when the frame rate varies.
+              const steps = Math.max(1, Math.ceil(elapsed * 120));
+              const dt = elapsed / steps;
+              for (let step = 0; step < steps; step++) {
+                bendVelocities[index] += ((breeze - bends[index]) * 95 - bendVelocities[index] * 7) * dt;
+                bends[index] += bendVelocities[index] * dt;
+              }
+            } else {
+              bends[index] = 0;
+              bendVelocities[index] = 0;
+            }
             p.push();
             p.translate(plant.x, plant.y);
-            p.rotate(animate ? Math.sin(time * .55 + plant.phase) * .006 + bends[index] : 0);
+            p.rotate(animate ? (Math.sin(time * .85 + plant.phase) * .022 + Math.sin(time * 1.7 + plant.phase * 2) * .008) * Math.min(1, plant.height / 180) + bends[index] : 0);
             for (const stroke of plant.strokes) {
               ctx.strokeStyle = ink[stroke.ink];
               ctx.lineWidth = stroke.width;
@@ -136,7 +158,7 @@ export function BotanicalGarden() {
     return () => { disposed = true; destroy?.(); };
   }, []);
 
-  return <figure className="garden" aria-label="A botanical garden drawn in colored filaments: ferns, curled tendrils, and three flowers.">
+  return <figure className="garden" aria-label={`A botanical garden drawn in colored filaments: ferns, curled tendrils, and ${flowerCount} flowers inspired by cosmos, daisies, poppies, and asters.`}>
     <div className="garden-plate">
       <div className="garden-imprint micro"><span>BOTANICAL STUDIES</span><span>FIG. 01</span></div>
       <div className="garden-surface" ref={host} data-ready={ready}>

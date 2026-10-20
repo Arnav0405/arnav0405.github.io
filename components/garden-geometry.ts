@@ -3,9 +3,11 @@ export type GardenInk = "stem" | "teal" | "sage" | "coral" | "apricot" | "violet
 export type GardenStroke = { d: string; ink: GardenInk; alpha: number; width: number };
 export type GardenPlant = { x: number; y: number; height: number; phase: number; strokes: GardenStroke[] };
 export const GARDEN_SEED = 10405;
+export const FLOWER_COUNTS = [2, 3, 4, 8] as const;
+export type FlowerCount = typeof FLOWER_COUNTS[number];
 const TAU = Math.PI * 2;
 
-export function gardenGeometry(seed: number): GardenPlant[] {
+export function gardenGeometry(seed: number, flowerCount: FlowerCount = 8): GardenPlant[] {
   let state = seed >>> 0;
   const random = (low = 0, high = 1) => {
     state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
@@ -43,13 +45,17 @@ export function gardenGeometry(seed: number): GardenPlant[] {
   fern(319, random(245, 270), 71, "sage");
   fern(137, random(165, 185), -52, "teal");
 
-  function bloom(x: number, height: number, bend: number, radius: number, ink: GardenInk) {
+  function bloom(x: number, height: number, bend: number, radius: number, ink: GardenInk, kind: number) {
     const p = plant(x, height, bend);
     const cx = bend, cy = -height;
     // Filament petals overlap like successive passes of colored ink.
     for (let i = 0; i < 115; i++) {
-      const a = i / 115 * TAU, r = radius * random(.78, 1.12);
-      const ex = cx + Math.cos(a) * r, ey = cy + Math.sin(a) * r * .78;
+      const a = i / 115 * TAU;
+      // Cosmos, daisies, poppies, and asters each have a distinct silhouette.
+      const lobes = [8, 13, 4, 21][kind];
+      const depth = [.23, .48, .16, .35][kind];
+      const r = radius * (1 - depth + depth * Math.pow((1 + Math.cos(a * lobes)) / 2, .65)) * random(.95, 1.05);
+      const ex = cx + Math.cos(a) * r, ey = cy + Math.sin(a) * r * (kind === 2 ? .65 : .88);
       const twist = .34 + Math.sin(a * 5) * .12;
       mark(p, `M${n(cx + Math.cos(a) * 5)} ${n(cy + Math.sin(a) * 5)}C${n(cx + Math.cos(a - twist) * r * .8)} ${n(cy + Math.sin(a - twist) * r * .65)} ${n(ex + Math.cos(a + 1.5) * 16)} ${n(ey + Math.sin(a + 1.5) * 13)} ${n(ex)} ${n(ey)}Q${n(cx + Math.cos(a + .15) * r * .65)} ${n(cy + Math.sin(a + .15) * r * .5)} ${n(cx + Math.cos(a + .4) * 7)} ${n(cy + Math.sin(a + .4) * 7)}`, i % 7 === 0 ? "gold" : ink, random(.3, .65), .65);
     }
@@ -64,9 +70,20 @@ export function gardenGeometry(seed: number): GardenPlant[] {
       for (let j = 1; j < 8; j++) mark(p, `M${n(bx)} ${n(by)}q${side * j * 5} -45 ${side * 47} -78`, "teal", .22, .5);
     }
   }
-  bloom(244, random(294, 316), 12, 49, "coral");
-  bloom(300, random(370, 388), 17, 38, "apricot");
-  bloom(337, random(206, 222), 34, 33, "violet");
+  // Separate tiers leave breathing room even in the fullest planting.
+  const beds: [number, number, number, number, GardenInk, number][] = [
+    [205, 314, 10, 40, "coral", 0],
+    [302, 392, 12, 34, "apricot", 1],
+    [346, 230, 30, 33, "violet", 3],
+    [115, 260, -24, 32, "coral", 2],
+    [395, 327, 5, 29, "gold", 1],
+    [239, 190, -12, 31, "apricot", 2],
+    [145, 397, -24, 29, "violet", 3],
+    [286, 276, 8, 28, "coral", 0],
+  ];
+  for (const [x, height, bend, radius, ink, kind] of beds.slice(0, flowerCount)) {
+    bloom(x, height + random(-10, 10), bend + random(-5, 5), radius * random(.92, 1.08), ink, kind);
+  }
 
   for (let i = 0; i < 5; i++) {
     const h = random(140, 285), bend = random(-55, 55), p = plant(120 + i * 53, h, bend);
