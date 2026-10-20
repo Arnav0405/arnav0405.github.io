@@ -13,7 +13,7 @@ export default function Cover() {
       <p className="cover-role">{site.role}</p>
       <p className="availability">Open for work</p>
       <nav className="contents" aria-label="Table of contents"><p className="micro">CHAPTERS</p><ol>{chapters.slice(1).map(c => <li key={c.href}><Link href={c.href}><span className="micro" style={{ color: "var(--accent)" }}>{c.numeral}</span><span>{c.label}</span><span className="dots" /><span aria-hidden="true">↗</span></Link></li>)}</ol></nav>
-      <div className="contact-links"><a href={`mailto:${site.email}`}>Email ↗</a><a href={site.github}>GitHub ↗</a><a href={site.linkedin}>LinkedIn ↗</a><a href={site.resume}>Resume ↓</a></div>
+      <div className="contact-links"><a href={`mailto:${site.email}`} target="_blank" rel="noopener">Email ↗</a><a href={site.github} target="_blank" rel="noopener">GitHub ↗</a><a href={site.linkedin} target="_blank" rel="noopener">LinkedIn ↗</a><a href={site.resume}>Resume ↓</a></div>
       <p className="hand-note" style={{ marginTop: 32 }}>a record of things I make.</p>
     </>} />
     <ChapterPagination href="/" />
