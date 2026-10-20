@@ -12,7 +12,7 @@ export default function About() {
       <BotanicalSprig />
     </>} right={<div className="reading">
       <p className="micro" style={{ color: "var(--accent)" }}>NOTES ON LEARNING</p>
-      <h2>On teaching<br /><em>&amp; being taught.</em></h2>
+      <h2>On teaching, <br /><em>well in a club.</em></h2>
       <h3>{mentorship.title}</h3><p>{mentorship.story}</p>
       <div className="study-note"><p className="micro">MILESTONES IN THE MARGIN</p>{certificates.map(c => <p className="hand-note" key={c}>{c}</p>)}</div>
     </div>} />

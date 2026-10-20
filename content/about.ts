@@ -1,5 +1,5 @@
 export const prologue = [
-  "I'm Arnav — a computer engineering student in my final year at K. J. Somaiya College of Engineering, Mumbai, where I began my B.Tech in 2023 and will finish in 2027.",
+  "I'm Arnav, a computer engineering student in my final year at K. J. Somaiya College of Engineering, Mumbai, where I began my B.Tech in 2023 and will finish in 2027.",
   "Most of my time goes into two loves that turned out to be the same love: machine learning and building things. I like systems that do real work scrapers that gather millions of records, models that learn to describe what they see, tools that make someone's day measurably easier.",
   "This site is my corner of the internet: part portfolio, part hobby website. The chapters ahead hold what I've built, where I've worked, and what I've published.",
 ];
