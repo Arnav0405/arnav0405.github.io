@@ -75,7 +75,7 @@ export const projects: Project[] = [
     summary:
       "My first swing at retrieval-augmented generation: a FastAPI + LangChain chatbot running Gemma 2B on Ollama, with large PDFs chunked into a vector database so answers come back grounded — and in under a second.",
     tech: ["FastAPI", "LangChain", "JavaScript", "HTML"],
-    link: "https://github.com/Arnav0405/ChatBot.Ai",
+    link: "https://github.com/Arnav0405/webChatbot",
     note: "Original Agentic Systems.",
   },
   {
